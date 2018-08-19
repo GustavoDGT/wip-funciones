@@ -1187,9 +1187,9 @@ section .border-section:last-child {
         color: #fff;
         background-color: rgba(255, 255, 255, 0);
     }
-    /*body.home.page, body.home.page button, body.home.page input, body.home.page select, body.home.page textarea {
+    body.home.page, body.home.page button, body.home.page input, body.home.page select, body.home.page textarea {
       font-size: 17px;
-    }*/
+    }
 }
 
 @media only screen 
