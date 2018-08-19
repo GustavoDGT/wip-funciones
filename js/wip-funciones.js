@@ -41,8 +41,9 @@ jQuery(document).ready(function($) {
 		lazyLoad:false,
 		rewind:true,
 		autoplay:true,
-		autoplayTimeout:4000,
+		autoplayTimeout:3000,
 		autoplayHoverPause:true,
+		lazyLoad:true,
 		nav:true,
 		navText: [
 			"<i class='fa fa-angle-left fa-4x'></i>",
