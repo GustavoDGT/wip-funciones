@@ -41,7 +41,7 @@ jQuery(document).ready(function($) {
 		lazyLoad:false,
 		rewind:true,
 		autoplay:true,
-		autoplayTimeout:3000,
+		autoplayTimeout:3500,
 		autoplayHoverPause:true,
 		lazyLoad:true,
 		nav:true,
@@ -81,6 +81,7 @@ jQuery(document).ready(function($) {
 		autoplay:true,
 		autoplayTimeout:4000,
 		autoplayHoverPause:true,
+		lazyLoad:true,
 		nav:true,
 		navText: [
 			"<i class='fa fa-angle-left fa-4x'></i>",
@@ -111,6 +112,7 @@ jQuery(document).ready(function($) {
 		autoplay:true,
 		autoplayTimeout:4000,
 		autoplayHoverPause:true,
+		lazyLoad:true,
 		nav:true,
 		navText: [
 			"<i class='fa fa-angle-left fa-4x'></i>",
