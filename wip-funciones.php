@@ -492,12 +492,14 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 					$tag_course_name = $terms[0]->name;
 				}
 				$initial_date = get_post_meta( $post->ID, '_lp_date_start', true );
+				$delimiter = ':';
+				$title = explode($delimiter, $post->post_title);
 			// Output
 				ob_start();					
 				?>	
 				<div class="wip-header-content">
 					<?php if( ! empty( $terms ) ): ?><h4><a href="<?php echo $tag_course_link; ?>"><?php echo $tag_course_name; ?> </a></h4><?php endif; ?>
-					<h1 class="frase" itemprop="headline"><?php echo $post->post_title; ?></h1>
+					<h1 class="frase" itemprop="headline"><?php echo $title[0] . $delimiter . '<br>' . $title[1]; ?></h1>
 					<?php if( ! empty( $initial_date ) && is_array( $initial_date ) ): ?>
 						<h3 class="wip-initial-date"><span>INICIO: </span><?php foreach ($initial_date as $date): ?><?php echo convert_spanish_date( $date ); ?><br><?php endforeach; ?></h3>
 					<?php endif; ?>

@@ -25,7 +25,7 @@ if( !empty($review_name) && !empty($review) ):
 	$reviews = array_combine( $review_name, $review );
 ?>
 	<section class="grid-100 grid-parent wip-40 align-center skinny-section" id="tab-reviews">
-		<h2>¿NUESTROS ALUMNOS QUE OPINAN?</h2>
+		<h2>NUESTROS ALUMNOS ¿QUÉ OPINAN?</h2>
 		<div class="wip-header-line"></div>
 		<div id="course-reviews" class="slider-home owl-carousel owl-theme">
 			<?php foreach ($reviews as $name => $text): ?>

@@ -20,7 +20,7 @@ $professional_title = get_user_meta( $course->get_instructor()->_id, 'profession
 ?>
 <section class="course-author wip-40 grid-100 grid-parent skinny-section bg-gray" id="tab-instructor">
 	<?php //_e( 'About the Instructor', 'learnpress' ); ?>
-    <h2>¿QUIENES COLABORARÁN A LOGRAR TU OBJETIVO?</h2>
+  <h2>¿QUIÉNES COLABORARÁN A LOGRAR TU OBJETIVO?</h2>
 	<div class="wip-normal-line"></div>
     <div id="course-instructors" class="slider-home owl-carousel owl-theme">
       <div class="intructor-item item thim-widget-icon-box align-center">
