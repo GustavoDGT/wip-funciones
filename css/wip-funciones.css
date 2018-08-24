@@ -611,6 +611,14 @@ h3.wip-initial-date {
     height: 100%;
     background-size: cover !important;
     background-position-y: -110px !important;
+    position: relative;
+}
+.bg-formation i {
+    color: #fff;
+    position: absolute;
+    top: 49%;
+    transform: translateY(-50%);
+    left: 46%;
 }
 /* About us */
 .about-img {

@@ -41,7 +41,7 @@ jQuery(document).ready(function($) {
 		lazyLoad:false,
 		rewind:true,
 		autoplay:true,
-		autoplayTimeout:3500,
+		autoplayTimeout:4000,
 		autoplayHoverPause:true,
 		lazyLoad:true,
 		nav:true,
