@@ -681,11 +681,13 @@ h3.wip-initial-date {
 }
 
 /* NEWS */
-.wip-news h4 {
-    text-transform: lowercase;
-}
 .wip-news span.date-publish {
-    
+    display: block;
+    font-size: 14px;
+    color: #777;
+}
+.wip-news .more-new {
+    margin-top: 2px;
 }
 /* What we do */
 .thim-widget-icon-box:hover .image_box {
