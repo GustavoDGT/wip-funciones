@@ -680,6 +680,13 @@ h3.wip-initial-date {
     border-bottom: 1px solid #eee;
 }
 
+/* NEWS */
+.wip-news h4 {
+    text-transform: lowercase;
+}
+.wip-news span.date-publish {
+    
+}
 /* What we do */
 .thim-widget-icon-box:hover .image_box {
     box-shadow: none;
