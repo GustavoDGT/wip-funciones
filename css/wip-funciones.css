@@ -32,6 +32,12 @@ blockquote {
 p, span, h1, h2, h3, h4, h5, h6, blockquote, ul, ol, table, a, nav {
     letter-spacing: 0.4px;
 }
+ul.grid-parent {
+    margin: 0;
+}
+ul.grid-parent li {
+    list-style: none;
+}
 .wip-sticky,
 .sticky-enabled.single-lp_course .wip-sticky {
   position: fixed;
