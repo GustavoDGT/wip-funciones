@@ -97,9 +97,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * Load assets in front
 		 */
 		public function wip_scripts() {
-			// General
-			wp_enqueue_style( 'custom-css', WIP_PLUGIN_URL . "css/wip-funciones.css", false, WIP_VERSION, 'all' );
-
 			// Only home and course single
 			if ( is_front_page() || is_singular(LP_COURSE_CPT) || is_page_template( array( 'page-contact.php', 'page-inhouse.php', 'page-soluciones.php', 'page-alquiler.php' ) )) {
 				wp_enqueue_style( 'owl-css', WIP_PLUGIN_URL . "css/owl.carousel.min.css", false, WIP_VERSION, 'all' );
