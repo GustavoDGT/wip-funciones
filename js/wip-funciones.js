@@ -199,7 +199,7 @@ jQuery(document).ready(function($) {
 
 	if( $("#wip-contact").length > 0 ) {
 		var parallax = document.getElementById("wip-contact");
-		var	speed = 0.01;
+		var	speed = 0.001;
 		window.onscroll = function() {
 			var parallaxPos = parallax.offsetTop;
 			elBackgrounPos = "center " + ( (parallaxPos - window.pageYOffset) * speed ) + "px";
