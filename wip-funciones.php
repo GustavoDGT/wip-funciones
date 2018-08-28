@@ -89,7 +89,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		}
 
 		public function wip_includes() {
-			include WIP_PLUGIN_PATH . 'inc/Mobile_Detect.php';	
+			include WIP_PLUGIN_PATH . 'inc/Mobile_Detect.php';
 			$this->detect = new Mobile_Detect;
 		}
 

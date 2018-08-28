@@ -164,18 +164,24 @@ jQuery(document).ready(function($) {
 		},
 	});
 
-	$('.wip-sign-up').click(function(e) {
-		console.log($('#course-navigation').scrollTop())
-		e.preventDefault();
-		e.stopPropagation();
-		$('html,body').animate({scrollTop: $("#tab-enroll").offset().top - 90}, 1000);    
-	}); 
 	$('.course-nav').click(function(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		$('html,body').animate({scrollTop: $($(this).find('a').attr('data-tab')).offset().top - 90}, 1000);    
 	}); 
 
+	$('.wip-sign-up').click(function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$('html,body').animate({scrollTop: $("#tab-enroll").offset().top - 90}, 1000);    
+	}); 
+
+	$('.wip-more-info').click(function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$('html,body').animate({scrollTop: $("#wip-contact").offset().top - 90}, 1000);    
+	}); 
+	
 	if( $("#course-navigation").length > 0 ) {
 		window.onscroll = function() {myFunction()};
 
