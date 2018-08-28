@@ -700,22 +700,27 @@ function wip_news_shortcode( $atts ) {
 }
 add_shortcode( 'WIP_NEWS', 'wip_news_shortcode' );
 
-function convert_spanish_date( $date ) {
-	$day = date( 'd', strtotime($date));
-	$m = date( 'n', strtotime($date));
-	if ($m==1)  { $month = "Enero"; }
-	if ($m==2)  { $month = "Febrero"; }
-	if ($m==3)  { $month = "Marzo"; }
-	if ($m==4)  { $month = "Abril"; }
-	if ($m==5)  { $month = "Mayo"; }
-	if ($m==6)  { $month = "Junio"; }
-	if ($m==7)  { $month = "Julio"; }
-	if ($m==8)  { $month = "Agosto"; }
-	if ($m==9)  { $month = "Setiembre"; }
-	if ($m==10) { $month = "Octubre"; }
-	if ($m==11) { $month = "Noviembre"; }
-	if ($m==12) { $month = "Diciembre"; };
-	$year = date( 'Y', strtotime($date) );
-	return ( $day . ' de ' . $month . ' del ' . $year );
+function convert_spanish_date( $date, $format = '') {
+	if($format == 'tiny') {
+		return 	date( 'd\/m\/Y', strtotime( $date ) );
+	} else {
+		$day = date( 'd', strtotime($date));
+		$m = date( 'n', strtotime($date));
+		if ($m==1)  { $month = "Enero"; }
+		if ($m==2)  { $month = "Febrero"; }
+		if ($m==3)  { $month = "Marzo"; }
+		if ($m==4)  { $month = "Abril"; }
+		if ($m==5)  { $month = "Mayo"; }
+		if ($m==6)  { $month = "Junio"; }
+		if ($m==7)  { $month = "Julio"; }
+		if ($m==8)  { $month = "Agosto"; }
+		if ($m==9)  { $month = "Setiembre"; }
+		if ($m==10) { $month = "Octubre"; }
+		if ($m==11) { $month = "Noviembre"; }
+		if ($m==12) { $month = "Diciembre"; };
+		$year = date( 'Y', strtotime($date) );
+		
+		return ( $day . ' de ' . $month . ' del ' . $year );	
+	}
 }
 ?>
