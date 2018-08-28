@@ -197,17 +197,19 @@ jQuery(document).ready(function($) {
 		}
 	}
 
-	var parallax = document.querySelectorAll("#wip-contact");
-	var	speed = -0.25;
+	if( $("#wip-contact").length > 0 ) {
+		var parallax = document.querySelectorAll( "#wip-contact" );
+		var	speed = -0.25;
+		window.onscroll = function() {
+			[].slice.call(parallax).forEach(function(el, i) {
+				console.log(i);
+				console.log(window.pageYOffset);
+				var windowYOffset = window.pageYOffset,
+					elBackgrounPos = "50% " + (windowYOffset * speed + i * 200) + "px";
 
-	window.onscroll = function() {
-		[].slice.call(parallax).forEach(function(el, i) {
+				el.style.backgroundPosition = elBackgrounPos;
 
-			var windowYOffset = window.pageYOffset,
-				elBackgrounPos = "50% " + (windowYOffset * speed + i * 200) + "px";
-
-			el.style.backgroundPosition = elBackgrounPos;
-
-		});
+			});
+		}
 	}
 });
