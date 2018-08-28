@@ -64,7 +64,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_filter( 'generate_logo', array( $this, 'wip_generate_logo' ) );
 			add_filter( 'generate_sidebar_layout', array( $this, 'wip_course_sidebar_layout' ) );
 			add_filter( 'generate_typography_default_fonts', array( $this, 'wip_add_system_fonts' ) );
-			add_action( 'generate_after_content', array( $this, 'wip_after_content' ) );
+			add_action( 'generate_after_main_content', array( $this, 'wip_after_content' ) );
 			add_action( 'wp', array( $this, 'wip_disable_cpt_elements' ) );
 			add_filter( 'comments_open', array( $this, 'wip_comments' ) );
 			// Learnpress customization
