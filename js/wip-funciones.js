@@ -196,9 +196,4 @@ jQuery(document).ready(function($) {
 			}
 		}
 	}
-
-	if( $("#wip-contact").length > 0 ) {
-		var scene = document.getElementById('wip-contact');
-		var parallaxInstance = new Parallax(scene);
-	}
 });
