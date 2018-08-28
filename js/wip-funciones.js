@@ -199,10 +199,10 @@ jQuery(document).ready(function($) {
 
 	if( $("#wip-contact").length > 0 ) {
 		var parallax = document.getElementById("wip-contact");
-		var	speed = -0.25;
+		var	speed = 0.05;
 		window.onscroll = function() {
 			var parallaxPos = parallax.offsetTop;
-			elBackgrounPos = "50% " + ( (parallaxPos - window.pageYOffset) * speed ) + "px";
+			elBackgrounPos = "center " + ( (parallaxPos - window.pageYOffset) * speed ) + "px";
 			parallax.style.backgroundPosition = elBackgrounPos;
 		}
 	}
