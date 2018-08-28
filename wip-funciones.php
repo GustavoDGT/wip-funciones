@@ -98,7 +98,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 */
 		public function wip_scripts() {
 			// Only home and course single
-			if ( is_front_page() || is_singular(LP_COURSE_CPT) || is_page_template( array( 'page-contact.php', 'page-inhouse.php', 'page-soluciones.php', 'page-alquiler.php' ) )) {
+			if ( is_front_page() || is_singular(LP_COURSE_CPT) || is_page_template( array( 'page-contact.php', 'page-inhouse.php', 'page-soluciones.php', 'page-alquiler.php', 'page-nosotros.php' ) )) {
 				wp_enqueue_style( 'owl-css', WIP_PLUGIN_URL . "css/owl.carousel.min.css", false, WIP_VERSION, 'all' );
 				wp_enqueue_style( 'owl-theme-css', WIP_PLUGIN_URL . "css/owl.theme.default.min.css", false, WIP_VERSION, 'all' );
 				wp_enqueue_script( 'owl-js', WIP_PLUGIN_URL . 'js/owl.carousel.min.js', array('jquery'), WIP_VERSION, true);
@@ -719,7 +719,7 @@ function convert_spanish_date( $date, $format = '') {
 		if ($m==11) { $month = "Noviembre"; }
 		if ($m==12) { $month = "Diciembre"; };
 		$year = date( 'Y', strtotime($date) );
-		
+
 		return ( $day . ' de ' . $month . ' del ' . $year );	
 	}
 }
