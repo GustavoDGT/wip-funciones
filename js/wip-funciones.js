@@ -199,14 +199,11 @@ jQuery(document).ready(function($) {
 
 	if( $("#wip-contact").length > 0 ) {
 		var parallax = document.querySelectorAll( "#wip-contact" );
-		var	speed = -0.25;
+		var	speed = -0.01;
 		window.onscroll = function() {
 			[].slice.call(parallax).forEach(function(el, i) {
-				console.log(i+1);
-				console.log(window.pageYOffset);
 				var windowYOffset = window.pageYOffset,
-					elBackgrounPos = "50% " + (windowYOffset * speed + (i + 1) * 200) + "px";
-
+				elBackgrounPos = "50% " + (windowYOffset * speed + i * 200) + "px";
 				el.style.backgroundPosition = elBackgrounPos;
 
 			});
