@@ -183,12 +183,12 @@ jQuery(document).ready(function($) {
 	}); 
 	
 	if( $("#course-navigation").length > 0 ) {
-		window.onscroll = function() {myFunction()};
+		window.onscroll = function() { wipSticky() };
 
 			var navbar = document.getElementById("course-navigation");
 			var sticky = navbar.offsetTop;
 
-		function myFunction() {
+		function wipSticky() {
 			if (window.pageYOffset >= sticky) {
 				navbar.classList.add("wip-sticky")
 			} else {
@@ -198,15 +198,12 @@ jQuery(document).ready(function($) {
 	}
 
 	if( $("#wip-contact").length > 0 ) {
-		var parallax = document.querySelectorAll( "#wip-contact" );
-		var	speed = -0.001;
+		var parallax = document.getElementById("wip-contact");
+		var	speed = -0.25;
 		window.onscroll = function() {
-			[].slice.call(parallax).forEach(function(el, i) {
-				var windowYOffset = window.pageYOffset,
-				elBackgrounPos = "50% " + (windowYOffset * speed + i * 200) + "px";
-				el.style.backgroundPosition = elBackgrounPos;
-
-			});
+			var parallaxPos = parallax.offsetTop;
+			elBackgrounPos = "50% " + ( (parallaxPos - window.pageYOffset) * speed ) + "px";
+			parallax.style.backgroundPosition = elBackgrounPos;
 		}
 	}
 });
