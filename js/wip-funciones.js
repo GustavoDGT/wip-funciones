@@ -199,7 +199,7 @@ jQuery(document).ready(function($) {
 
 	if( $("#wip-contact").length > 0 ) {
 		var parallax = document.querySelectorAll( "#wip-contact" );
-		var	speed = -0.01;
+		var	speed = -0.001;
 		window.onscroll = function() {
 			[].slice.call(parallax).forEach(function(el, i) {
 				var windowYOffset = window.pageYOffset,
