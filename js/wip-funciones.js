@@ -202,7 +202,7 @@ jQuery(document).ready(function($) {
 		var	speed = 0.001;
 		window.onscroll = function() {
 			var parallaxPos = parallax.offsetTop;
-			elBackgrounPos = "center " + ( (parallaxPos - window.pageYOffset) * speed ) + "px";
+			elBackgrounPos = "50% " + ( (parallaxPos - window.pageYOffset) * speed ) + "px";
 			parallax.style.backgroundPosition = elBackgrounPos;
 		}
 	}
