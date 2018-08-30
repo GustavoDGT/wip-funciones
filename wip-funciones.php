@@ -605,7 +605,7 @@ function wip_funciones_jquery() {
 		}
 	}
 // even more smart jquery inclusion :)
-add_action('init', 'wip_funciones_jquery');
+add_action('init', 'wip_funciones_jquery', 11);
 
 /**
  *	Better jpg quality
