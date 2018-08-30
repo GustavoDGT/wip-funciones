@@ -596,7 +596,7 @@ function wip_funciones_jquery() {
 		wp_deregister_script('jquery');
 		wp_deregister_script('jquery-migrate');  
 		// register the Google hosted Version
-		wp_register_script('jquery', ("http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"), false, '', true);
+		wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"), false, '', true);
 		wp_register_script('jquery-migrate', ("https://code.jquery.com/jquery-migrate-1.4.1.min.js"), array('jquery'), '', true);
 		  
 		// add it back into the queue
