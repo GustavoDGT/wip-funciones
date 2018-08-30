@@ -60,6 +60,10 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action('wp_footer', array( $this, 'wip_funciones_measurement_in_footer' ), 100);
 			add_action('pre_current_active_plugins', array( $this, 'wip_hide_plugin' ) );
 			add_filter( 'views_plugins', array( $this, 'wip_views_plugins' ) );
+			remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); 
+			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' ); 
+			remove_action( 'wp_print_styles', 'print_emoji_styles' ); 
+			remove_action( 'admin_print_styles', 'print_emoji_styles' );
 			// Custom edit funcionality
 			add_filter( 'generate_logo', array( $this, 'wip_generate_logo' ) );
 			add_filter( 'generate_sidebar_layout', array( $this, 'wip_course_sidebar_layout' ) );
