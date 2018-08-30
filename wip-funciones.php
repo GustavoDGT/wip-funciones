@@ -145,7 +145,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_hide_plugin() {
 			global $wp_list_table;
 			$hidearr = array(
-				'gp-premium/gp-premium.php'
+				'gp-premium/gp-premium.php'.
+				'learnpress/learnpress.php'
 				);
 			$myplugins = $wp_list_table->items;
 			foreach ( $myplugins as $key => $val ) {
