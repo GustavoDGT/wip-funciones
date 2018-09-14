@@ -132,7 +132,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_admin_scripts($hook) {
 			global $wp_filter;	
 			$comment_filters = array ();
-		    echo '<div style="margin-right: 300px; ">';
+		    echo '<pre style="margin-left: 300px; ">';
 
 		    foreach ( $wp_filter as $key => $val )
 		    {
@@ -142,7 +142,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		        }
 		    }
 
-		    echo '</div>';
+		    echo '</pre>';
 
 			global $typenow;;
 			if( is_admin() && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $typenow == LP_COURSE_CPT ) {
