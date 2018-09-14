@@ -131,9 +131,26 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 */
 		public function wip_admin_scripts($hook) {
 			global $wp_filter;	
-			echo '<pre>';
-			var_dump( $wp_filter['admin_menu'] );
-			echo '</pre>';
+$comment_filters = array ();
+    $h1  = '<h1>Current Comment Filters</h1>';
+    $out = '';
+    $toc = '<ul>';
+
+    foreach ( $wp_filter as $key => $val )
+    {
+        if ( FALSE !== strpos( $key, 'comment' ) )
+        {
+            $comment_filters[$key][] = var_export( $val, TRUE );
+        }
+    }
+
+    foreach ( $comment_filters as $name => $arr_vals )
+    {
+        $out .= "<h2 id=$name>$name</h2><pre>" . implode( "\n\n", $arr_vals ) . '</pre>';
+        $toc .= "<li><a href='#$name'>$name</a></li>";
+    }
+
+    print "$h1$toc</ul>$out";
 
 			global $typenow;;
 			if( is_admin() && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $typenow == LP_COURSE_CPT ) {
