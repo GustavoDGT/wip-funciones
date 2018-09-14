@@ -72,20 +72,21 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action( 'wp', array( $this, 'wip_disable_cpt_elements' ) );
 			add_filter( 'comments_open', array( $this, 'wip_comments' ) );
 			// Learnpress customization
-			add_filter( 'learn-press/frontend-default-styles', array( $this, 'wip_learnpress_custom_enqueue' ) );
-			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
-			//remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 );
+			remove_action( 'learn-press/before-main-content', 'learn_press_breadcrumb', 10 ); // Remove breadcrumb
 			//remove_action( 'learn-press/single-course-summary', 'learn_press_single_course_summary', 5 );
+			add_filter( 'learn-press/frontend-default-styles', array( $this, 'wip_learnpress_custom_enqueue' ) );
 			add_filter( 'learn_press_get_template', array( $this, 'wip_single_course' ), 10, 2 );
 			add_filter( 'learn_press_get_template_part', array( $this, 'wip_content_course' ) );
-			remove_action( 'learn-press/before-main-content', 'learn_press_breadcrumb', 10 );
 			add_filter( 'learn-press/course-tabs', array( $this, 'wip_new_tabs_courses' ) );
-			// Admin customization
+			/* Admin customization */
+			remove_action( 'admin_menu', array( 'LP_Admin_Menu', 'admin_menu' ) ); // Remove principal menu Learnpress
+			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 ); // Remove Learnpress pages tab
 			add_filter( 'rwmb_meta_boxes', array( $this, 'wip_register_meta_boxes' ) );
+			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
 			add_filter( 'learn_press_course_settings_meta_box_args', array( $this, 'wip_course_settings_meta_boxes' ) );
 			add_filter( 'learn_press_course_payment_meta_box_args', array( $this, 'wip_course_payment_meta_boxes' ) );
 			add_filter( 'learn-press/admin-course-tabs', array( $this, 'wip_add_course_meta_boxes' ) );
-
+			/* Profile customization */
 			add_action('show_user_profile', array( $this, 'my_user_profile_edit_action') );
 			add_action('edit_user_profile', array( $this, 'my_user_profile_edit_action') );
 			add_action('personal_options_update', array( $this, 'my_user_profile_update_action' ) );
