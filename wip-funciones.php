@@ -74,8 +74,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			// Learnpress customization
 			add_filter( 'learn-press/frontend-default-styles', array( $this, 'wip_learnpress_custom_enqueue' ) );
 			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
-			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 );
-			remove_action( 'learn-press/single-course-summary', 'learn_press_single_course_summary', 5 );
+			//remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 );
+			//remove_action( 'learn-press/single-course-summary', 'learn_press_single_course_summary', 5 );
 			add_filter( 'learn_press_get_template', array( $this, 'wip_single_course' ), 10, 2 );
 			add_filter( 'learn_press_get_template_part', array( $this, 'wip_content_course' ) );
 			remove_action( 'learn-press/before-main-content', 'learn_press_breadcrumb', 10 );
