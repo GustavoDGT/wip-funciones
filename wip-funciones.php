@@ -138,7 +138,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		    {
 		        if ( FALSE !== strpos( $key, 'admin_menu' ) )
 		        {
-		            echo $val;
+		            var_dump( $val );
 		        }
 		    }
 
