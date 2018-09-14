@@ -79,7 +79,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_filter( 'learn_press_get_template_part', array( $this, 'wip_content_course' ) );
 			add_filter( 'learn-press/course-tabs', array( $this, 'wip_new_tabs_courses' ) );
 			/* Admin customization */
-			remove_action( 'admin_menu', array( 'LP_Admin_Menu', 'admin_menu' ), 10 ); // Remove principal menu Learnpress
+			remove_action( 'admin_menu', array( 'LP_Admin_Menu', '000000000d4b60b200007f984fd93b52admin_menu' ) ); // Remove principal menu Learnpress
 			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 ); // Remove Learnpress pages tab
 			add_filter( 'rwmb_meta_boxes', array( $this, 'wip_register_meta_boxes' ) );
 			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
@@ -130,7 +130,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * @param  Global
 		 */
 		public function wip_admin_scripts($hook) {
-			global $wp_filter;	
+			/*global $wp_filter;	
 			$comment_filters = array ();
 		    echo '<pre style="margin-left: 300px; ">';
 
@@ -142,7 +142,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		        }
 		    }
 
-		    echo '</pre>';
+		    echo '</pre>';*/
 
 			global $typenow;;
 			if( is_admin() && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $typenow == LP_COURSE_CPT ) {
