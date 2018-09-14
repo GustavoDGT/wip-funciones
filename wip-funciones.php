@@ -132,13 +132,13 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_admin_scripts($hook) {
 			global $wp_filter;	
 $comment_filters = array ();
-    $h1  = '<h1>Current Comment Filters</h1>';
+    $h1  = '<h1>Filters</h1>';
     $out = '';
     $toc = '<ul>';
 
     foreach ( $wp_filter as $key => $val )
     {
-        if ( FALSE !== strpos( $key, 'comment' ) )
+        if ( FALSE === strpos( $key, 'comment' ) )
         {
             $comment_filters[$key][] = var_export( $val, TRUE );
         }
