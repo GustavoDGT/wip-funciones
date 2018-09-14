@@ -140,7 +140,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		}
 
 		public function wip_admin_scripts($hook) {
-			print_filters_for( 'admin_menu' );
+			$this->print_filters_for( 'admin_menu' );
 
 			global $typenow;;
 			if( is_admin() && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $typenow == LP_COURSE_CPT ) {
