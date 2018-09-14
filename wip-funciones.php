@@ -12,8 +12,8 @@ defined( 'ABSPATH' ) || exit();
 
 if ( ! defined( 'WIP_PLUGIN_URL' ) ) define('WIP_PLUGIN_URL', plugin_dir_url( __FILE__ ));
 if ( ! defined( 'WIP_PLUGIN_PATH' ) ) define('WIP_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
-if ( ! defined('WIP_PREFIX') ) define('WIP_PREFIX', 'wip');
-if ( ! defined('WIP_VERSION') ) define('WIP_VERSION', '1.0');
+if ( ! defined( 'WIP_PREFIX' ) ) define('WIP_PREFIX', 'wip');
+if ( ! defined( 'WIP_VERSION' ) ) define('WIP_VERSION', '1.0');
 
 if ( ! class_exists( 'WipFunciones' ) ) {
 
@@ -72,6 +72,10 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action( 'wp', array( $this, 'wip_disable_cpt_elements' ) );
 			add_filter( 'comments_open', array( $this, 'wip_comments' ) );
 			// Learnpress customization
+			add_filter( 'learn-press/frontend-default-styles', array( $this, 'wip_learnpress_custom_enqueue' ) );
+			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
+			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 );
+			remove_action( 'learn-press/single-course-summary', 'learn_press_single_course_summary', 5 );
 			add_filter( 'learn_press_get_template', array( $this, 'wip_single_course' ), 10, 2 );
 			add_filter( 'learn_press_get_template_part', array( $this, 'wip_content_course' ) );
 			remove_action( 'learn-press/before-main-content', 'learn_press_breadcrumb', 10 );
@@ -202,8 +206,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * @return Array
 		 */
 		public function wip_add_system_fonts( $fonts ) {
-		    $fonts[] = 'StagSansLight';
-		    $fonts[] = 'StagSansBook';
 		    $fonts[] = 'SF Pro Text';
 		    $fonts[] = 'SF Pro Display';
 		    return $fonts;
@@ -212,11 +214,22 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_after_content() {
 			get_template_part('blocks/newsletter');
 		}
+
 		/**
 		 * Disable comments
 		 */
 		public function wip_comments(){
 			return false;
+		}
+
+		public function wip_learnpress_custom_enqueue( $styles ) {
+			$styles['font-awesome'] = WIP_PLUGIN_URL . 'css/font-awesome.min.css';
+			return $styles;
+		}
+
+		public function wip_learnpress_admin_custom_enqueue( $styles ) {
+			$styles['font-awesome'] = WIP_PLUGIN_URL . 'css/font-awesome.min.css';
+			return $styles;
 		}
 
 		/**
