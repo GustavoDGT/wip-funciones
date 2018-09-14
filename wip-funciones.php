@@ -130,6 +130,11 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * @param  Global
 		 */
 		public function wip_admin_scripts($hook) {
+			global $wp_filter;	
+			echo '<pre>';
+			var_dump( $wp_filter['admin_menu'] );
+			echo '</pre>';
+
 			global $typenow;;
 			if( is_admin() && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $typenow == LP_COURSE_CPT ) {
 				wp_enqueue_style( 'custom-admin', WIP_PLUGIN_URL . "css/wip-admin-funciones.css", false, WIP_VERSION, 'all' );
