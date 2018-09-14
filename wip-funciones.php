@@ -132,25 +132,17 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_admin_scripts($hook) {
 			global $wp_filter;	
 			$comment_filters = array ();
-		    $h1  = '<div><h1>Filters</h1>';
-		    $out = '</div>';
-		    $toc = '<ul>';
+		    echo '<div style="margin-right: 300px; ">';
 
 		    foreach ( $wp_filter as $key => $val )
 		    {
-		        if ( FALSE === strpos( $key, 'comment' ) )
+		        if ( FALSE !== strpos( $key, 'admin_menu' ) )
 		        {
-		            $comment_filters[$key][] = var_export( $val, TRUE );
+		            echo $val;
 		        }
 		    }
 
-		    foreach ( $comment_filters as $name => $arr_vals )
-		    {
-		        $out .= "<h2 id=$name>$name</h2><pre>" . implode( "\n\n", $arr_vals ) . '</pre>';
-		        $toc .= "<li><a href='#$name'>$name</a></li>";
-		    }
-
-		    print "$h1$toc</ul>$out";
+		    echo '</div>';
 
 			global $typenow;;
 			if( is_admin() && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $typenow == LP_COURSE_CPT ) {
