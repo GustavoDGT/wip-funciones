@@ -19,6 +19,7 @@ global $course_data;
 $course = learn_press_get_course();
 
 $tabs = learn_press_get_course_tabs(); 
+var_dump($tabs);
 if ( empty( $tabs ) ) {
 	return;
 } 
