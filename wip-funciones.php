@@ -79,8 +79,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_filter( 'learn_press_get_template_part', array( $this, 'wip_content_course' ) );
 			add_filter( 'learn-press/course-tabs', array( $this, 'wip_new_tabs_courses' ) );
 			/* Admin customization */
-			remove_action( 'admin_menu', array( 'LP_Admin_Menu', 'admin_menu' ) ); // Remove principal menu Learnpress
 			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 ); // Remove Learnpress pages tab
+			add_action( 'admin_menu', array( $this, 'wip_admin_menu' ) );
 			add_filter( 'rwmb_meta_boxes', array( $this, 'wip_register_meta_boxes' ) );
 			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
 			add_filter( 'learn_press_course_settings_meta_box_args', array( $this, 'wip_course_settings_meta_boxes' ) );
@@ -328,6 +328,13 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 
 		public function learn_press_course_enroll_tab() {
 			include( WIP_PLUGIN_PATH . 'front/register-course.php' );
+		}
+
+		/**
+		 * 
+		 */
+		public function wip_admin_menu() {
+			remove_menu_page( 'learn_press' );
 		}
 
 		/**
