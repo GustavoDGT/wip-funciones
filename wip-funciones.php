@@ -81,6 +81,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			/* Admin customization */
 			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 ); // Remove Learnpress pages tab
 			add_action( 'admin_menu', array( $this, 'wip_admin_menu' ) );
+			add_filter( 'learn_press_admin_tabs_info', array( $this, 'wip_admin_tabs_info' ) );
 			add_filter( 'rwmb_meta_boxes', array( $this, 'wip_register_meta_boxes' ) );
 			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
 			add_filter( 'learn_press_course_settings_meta_box_args', array( $this, 'wip_course_settings_meta_boxes' ) );
@@ -101,6 +102,16 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_includes() {
 			include WIP_PLUGIN_PATH . 'inc/Mobile_Detect.php';
 			$this->detect = new Mobile_Detect;
+		}
+
+		public function print_filters_for( $hook = '' ) {
+			global $wp_filter;
+			if( empty( $hook ) || !isset( $wp_filter[$hook] ) )
+				return;
+
+		    print '<pre style="margin-left: 300px; ">';
+			print_r( $wp_filter[$hook] );
+			print '</pre>';
 		}
 
 		/**
@@ -129,19 +140,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * Load assets in admin
 		 * @param  Global
 		 */
-		public function print_filters_for( $hook = '' ) {
-			global $wp_filter;
-			if( empty( $hook ) || !isset( $wp_filter[$hook] ) )
-				return;
-
-		    print '<pre style="margin-left: 300px; ">';
-			print_r( $wp_filter[$hook] );
-			print '</pre>';
-		}
-
 		public function wip_admin_scripts($hook) {
-			// $this->print_filters_for( 'admin_menu' );
-
 			global $typenow;;
 			if( is_admin() && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $typenow == LP_COURSE_CPT ) {
 				wp_enqueue_style( 'custom-admin', WIP_PLUGIN_URL . "css/wip-admin-funciones.css", false, WIP_VERSION, 'all' );
@@ -331,10 +330,15 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		}
 
 		/**
-		 * 
+		 * Remove and menus admin
 		 */
 		public function wip_admin_menu() {
-			remove_menu_page( 'learn_press' );
+			//remove_menu_page( 'learn_press' );
+		}
+
+		public function wip_admin_tabs_info( $tabs ) {
+			$tabs[30]['name'] = 'Programas';
+			return $tabs;
 		}
 
 		/**
@@ -370,27 +374,27 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 				if( in_array( $field['id'], array( '_lp_max_students', '_lp_students', '_lp_retake_count', '_lp_block_lesson_content' ) ) ):
 					unset( $meta_box['fields'][$key] );
 				endif;
-				endforeach;
+			endforeach;
 
-				$meta_box['fields'][] = array(
-					'name' => 'horarios',
-					'id'   => '_lp_schedules',
-					'type' => 'textarea',
-					'desc' => __( 'Horarios de los cursos.', 'learnpress' ),
-					);
-				$meta_box['fields'][] = array(
-					'name' => 'lugar',
-					'id'   => '_lp_place',
-					'type' => 'textarea',
-					'desc' => __( 'Lugar en que se impartira el curso.', 'learnpress' ),
-					);
-				$meta_box['fields'][] = array(
-					'id'    => '_lp_file',
-					'type'  => 'file_advanced',
-					'max_file_uploads' => 1,
-					);
-				return $meta_box;
-			}
+			$meta_box['fields'][] = array(
+				'name' => 'horarios',
+				'id'   => '_lp_schedules',
+				'type' => 'textarea',
+				'desc' => __( 'Horarios de los cursos.', 'learnpress' ),
+				);
+			$meta_box['fields'][] = array(
+				'name' => 'lugar',
+				'id'   => '_lp_place',
+				'type' => 'textarea',
+				'desc' => __( 'Lugar en que se impartira el curso.', 'learnpress' ),
+				);
+			$meta_box['fields'][] = array(
+				'id'    => '_lp_file',
+				'type'  => 'file_advanced',
+				'max_file_uploads' => 1,
+				);
+			return $meta_box;
+		}
 
 			public function wip_course_payment_meta_boxes( $meta_box ) {
 				//Edit fields 
