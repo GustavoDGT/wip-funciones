@@ -375,6 +375,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 						'parent_item_colon'  => __( 'Programa principal:', 'WIP_domain' ),
 			);
 
+		    $taxonomy_args->rewrite['hierarchical'] = true,
 			$taxonomy_args->hierarchical = true;
 
 		    // re-register the taxonomy
