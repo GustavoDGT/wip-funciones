@@ -373,6 +373,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 						'add_new_item'  => __( 'Añadir nuevo programa', 'WIP_domain' ),
 						'all_items'     => __( 'Todos los programas', 'WIP_domain' )
 			);
+			
+			$taxonomy_args->hierarchical = true;
 
 		    // re-register the taxonomy
 		    register_taxonomy( 'course_tag', array( LP_COURSE_CPT ), (array) $taxonomy_args );
