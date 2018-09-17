@@ -355,8 +355,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_edit_post_type_args( $args, $post_type ) {
 		 
 		    if ( $post_type == LP_COURSE_CPT ){
-		        $args['show_in_menu'] = 'learn_press'; // true
-		        $args['supports'][] = 'custom-fields'; //page-attributes
+		        $args['show_in_menu'] = true; // true
+		        $args['supports'][] = 'page-attributes'; //page-attributes
 		    }
 		 
 		    return $args;
