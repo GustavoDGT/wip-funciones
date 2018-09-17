@@ -73,7 +73,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_filter( 'comments_open', array( $this, 'wip_comments' ) );
 			// Learnpress customization
 			remove_action( 'learn-press/before-main-content', 'learn_press_breadcrumb', 10 ); // Remove breadcrumb
-			//remove_action( 'learn-press/single-course-summary', 'learn_press_single_course_summary', 5 );
+			remove_action( 'learn-press/single-course-summary', 'learn_press_single_course_summary', 5 ); //Remove learning template
+			add_action( 'learn-press/single-course-summary', array( $this, 'wip_single_course_summary' ) );
 			add_filter( 'learn-press/frontend-default-styles', array( $this, 'wip_learnpress_custom_enqueue' ) );
 			add_filter( 'learn_press_get_template', array( $this, 'wip_single_course' ), 10, 2 );
 			add_filter( 'learn_press_get_template_part', array( $this, 'wip_content_course' ) );
@@ -81,6 +82,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			/* Admin customization */
 			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 ); // Remove Learnpress pages tab
 			add_action( 'admin_menu', array( $this, 'wip_admin_menu' ) );
+			add_filter( 'register_post_type_args', array( $this, 'wip_edit_post_type_args' ) );
+			add_action( 'init', array( $this, 'wip_edit_taxonomy_args' ), 11 );
 			add_filter( 'learn_press_admin_tabs_info', array( $this, 'wip_admin_tabs_info' ) );
 			add_filter( 'rwmb_meta_boxes', array( $this, 'wip_register_meta_boxes' ) );
 			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
@@ -234,6 +237,13 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			return false;
 		}
 
+		/**
+		 * Chance single course template 
+		 */
+		public function wip_single_course_summary() {
+			include_once WIP_PLUGIN_PATH . 'front/content-landing.php';
+		}
+
 		public function wip_learnpress_custom_enqueue( $styles ) {
 			$styles['font-awesome'] = WIP_PLUGIN_URL . 'css/font-awesome.min.css';
 			return $styles;
@@ -336,7 +346,40 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			//remove_menu_page( 'learn_press' );
 		}
 
+		/**
+		 * Change args in post types.
+		 * @param  Array $args      All args of post types
+		 * @param  String $post_type This post type slug
+		 * @return Array
+		 */
+		public function wip_edit_post_type_args( $args, $post_type ) {
+		 
+		    if ( $post_type == LP_COURSE_CPT ){
+		        $args['show_in_menu'] = 'learn_press';
+		        $args['supports'][] = 'custom-fields'; //page-attributes
+		    }
+		 
+		    return $args;
+		}
+
+		public function wip_edit_taxonomy_args() {
+		    // get the arguments of the already-registered taxonomy
+		    $taxonomy_args = get_taxonomy( 'course_tag' ); // returns an object
+
+		    $taxonomy_args->labels = array(
+						'name'          => __( 'Programas', 'WIP_domain' ),
+						'menu_name'     => __( 'Programa', 'WIP_domain' ),
+						'singular_name' => __( 'Programa', 'WIP_domain' ),
+						'add_new_item'  => __( 'Añadir nuevo programa', 'WIP_domain' ),
+						'all_items'     => __( 'Todos los programas', 'WIP_domain' )
+			);
+
+		    // re-register the taxonomy
+		    register_taxonomy( 'course_tag', array( LP_COURSE_CPT ), (array) $taxonomy_args );
+		}
+
 		public function wip_admin_tabs_info( $tabs ) {
+			//Tags
 			$tabs[30]['name'] = 'Programas';
 			return $tabs;
 		}
