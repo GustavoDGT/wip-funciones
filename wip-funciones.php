@@ -65,6 +65,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			remove_action( 'wp_print_styles', 'print_emoji_styles' ); 
 			remove_action( 'admin_print_styles', 'print_emoji_styles' );
 			// Custom edit funcionality
+			add_action( 'generate_before_header', array( $this, 'wip_before_header') );
 			add_filter( 'generate_logo', array( $this, 'wip_generate_logo' ) );
 			add_filter( 'generate_sidebar_layout', array( $this, 'wip_course_sidebar_layout' ) );
 			add_filter( 'generate_typography_default_fonts', array( $this, 'wip_add_system_fonts' ) );
@@ -184,6 +185,14 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			return $views;
 		}
 
+		public function wip_before_header() {
+			?>
+			<!-- Google Tag Manager (noscript) -->
+			<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V3P64V"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+			<!-- End Google Tag Manager (noscript) -->
+			<?php
+		}
 		/**
 		 * Change Logo URL for custom meta of POST ID
 		 * @return String
