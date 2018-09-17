@@ -82,7 +82,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			/* Admin customization */
 			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 ); // Remove Learnpress pages tab
 			add_action( 'admin_menu', array( $this, 'wip_admin_menu' ) );
-			add_filter( 'register_post_type_args', array( $this, 'wip_edit_post_type_args' ), 11, 2 );
+			add_filter( 'register_post_type_args', array( $this, 'wip_edit_post_type_args' ), 12, 2 );
 			add_action( 'init', array( $this, 'wip_edit_taxonomy_args' ), 11 );
 			add_filter( 'learn_press_admin_tabs_info', array( $this, 'wip_admin_tabs_info' ) );
 			add_filter( 'rwmb_meta_boxes', array( $this, 'wip_register_meta_boxes' ) );
