@@ -371,9 +371,10 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 						'menu_name'     => __( 'Programa', 'WIP_domain' ),
 						'singular_name' => __( 'Programa', 'WIP_domain' ),
 						'add_new_item'  => __( 'Añadir nuevo programa', 'WIP_domain' ),
-						'all_items'     => __( 'Todos los programas', 'WIP_domain' )
+						'all_items'     => __( 'Todos los programas', 'WIP_domain' ),
+						'parent_item_colon'  => __( 'Programa principal:', 'WIP_domain' ),
 			);
-			
+
 			$taxonomy_args->hierarchical = true;
 
 		    // re-register the taxonomy
