@@ -72,6 +72,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action( 'generate_after_main_content', array( $this, 'wip_after_content' ) );
 			add_action( 'wp', array( $this, 'wip_disable_cpt_elements' ) );
 			add_filter( 'comments_open', array( $this, 'wip_comments' ) );
+			add_action( 'wp_footer', array( $this, 'wip_modals') );
 			// Learnpress customization
 			remove_action( 'learn-press/before-main-content', 'learn_press_breadcrumb', 10 ); // Remove breadcrumb
 			remove_action( 'learn-press/single-course-summary', 'learn_press_single_course_summary', 5 ); //Remove learning template
@@ -133,6 +134,11 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			// Don't animate in home
 			if( ! is_front_page() ) {
   				wp_enqueue_style( 'animate-css', WIP_PLUGIN_URL . "css/animate.css", false, GENERATE_VERSION, 'all' );	
+			}
+
+			if( is_front_page() ) {
+				wp_enqueue_script( 'modals-js', WIP_PLUGIN_URL . 'js/modals.js', array('jquery'), WIP_VERSION, true);
+				wp_enqueue_style( 'modals-css', WIP_PLUGIN_URL . "css/modals.css", false, WIP_VERSION, 'all' );
 			}
 
 			if( is_singular( LP_COURSE_CPT ) ) {
@@ -246,6 +252,15 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			return false;
 		}
 
+		public function wip_modals() {
+			if( is_front_page() ):
+				?>
+				<div id="content-modals">
+					<?php if( is_front_page() ) get_template_part( 'blocks/modal-suscription' ); ?>
+				</div>
+				<?php
+			endif;
+		}
 		/**
 		 * Chance single course template 
 		 */
