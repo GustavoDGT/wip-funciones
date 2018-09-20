@@ -199,6 +199,7 @@ jQuery(document).ready(function($) {
 
 	if( $('body.home').length > 0 ){
 		document.addEventListener( 'wpcf7mailsent', function( event ) {
+			console.log('hola');
 			if ( '1077' == event.detail.contactFormId ) {
 				var link = document.createElement('a');
 				link.href = url;
