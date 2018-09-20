@@ -198,14 +198,14 @@ jQuery(document).ready(function($) {
 	}
 
 	if( $('body.home').length > 0 ){
-		document.addEventListener( 'wpcf7mailsent', function( event ) {
-			console.log('hola');
-			if ( '1077' == event.detail.contactFormId ) {
+		document.addEventListener( 'wpcf7mailfailed', function( event ) {
+			console.log(event);
+			/*if ( '1077' == event.detail.contactFormId ) {
 				var link = document.createElement('a');
 				link.href = url;
 				link.download = 'https://itsystems.pe/wp-content/uploads/2018/09/INTRODUCCIÓN-SAP-R3.pdf';
 				link.dispatchEvent(new MouseEvent('click'));
-			}
+			}*/
 		}, false );
 	}
 });
