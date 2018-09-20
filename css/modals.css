@@ -450,11 +450,14 @@
   z-index: 100;
 }
 .overlay_modal.active_modal .close {
-  top: 40px;
+  top: 10px;
   right: 0;
   position: absolute;
   background: none;
   z-index: 105;
+}
+.admin-bar .overlay_modal.active_modal .close {
+  top: 42px;
 }
 
 @media (min-width: 480px) {
@@ -490,7 +493,7 @@
   }
 
   .overlay_modal.active_modal .modal_cm {
-    top: 57%;
+    top: 50%;
   }
 
   .overlay_modal .modal_cm.detail-modal {
