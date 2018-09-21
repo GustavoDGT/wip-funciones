@@ -102,7 +102,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_shortcode( 'WIP_BREADCRUMB', array( $this, 'course_breadcrumb_st' ) );		
 			// CF7 Custom
 			add_filter( 'wpcf7_form_tag', array( $this, 'dynamic_field_values' ), 10, 2);
-				
+			add_filter( 'wpcf7_validate_text', array( $this, 'custom_text_validation' ), 20, 2);
+			add_filter( 'wpcf7_validate_text*', array( $this, 'custom_text_validation' ), 20, 2);	
 		}
 
 		public function wip_includes() {
@@ -657,6 +658,19 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 
 		    return $tag;
 
+		}
+
+		public function custom_text_validation($result, $tag) {
+		    $type = $tag->type; //object instead of array
+		    $name = $tag->name; //object instead of array
+
+		    if( $type == 'tel' && ($name == 'wip-phone' || $name == 's-phone' || $name == 'your_phone' ) ) {
+		    	$value = $_POST[$name];
+		        if(!preg_match("/^[0-9\-\(\)\/\+\s]{7,}$/i", $value )){ //new regex statement
+		        	$result->invalidate($tag, "Invalid characters");
+		        }
+		    }
+		    return $result;
 		}
 	}
 
