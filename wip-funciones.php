@@ -83,6 +83,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_filter( 'learn-press/course-tabs', array( $this, 'wip_new_tabs_courses' ) );
 			/* Admin customization */
 			remove_filter( 'views_edit-page', array( 'LP_Admin', 'views_pages' ), 10 ); // Remove Learnpress pages tab
+			add_action( 'locale', array( $this, 'wip_admin_langauge' ) );
 			add_action( 'admin_menu', array( $this, 'wip_admin_menu' ) );
 			add_filter( 'register_post_type_args', array( $this, 'wip_edit_post_type_args' ), 11, 2 );
 			add_action( 'init', array( $this, 'wip_edit_taxonomy_args' ), 9999 );
@@ -363,6 +364,13 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			include( WIP_PLUGIN_PATH . 'front/register-course.php' );
 		}
 
+		public function wip_admin_langauge( $locale ) {
+			if(is_admin()) {
+				$locale = 'es_ES';
+			}
+
+			return $locale;
+		}
 		/**
 		 * Remove and menus admin
 		 */
