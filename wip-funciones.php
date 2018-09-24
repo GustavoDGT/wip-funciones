@@ -667,7 +667,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		    if( $name == 'wip-phone' || $name == 's-phone' || $name == 'your_phone' ) {
 		    	$value = $_POST[$name];
 		        if(!preg_match("/^[0-9\-\(\)\/\+\s]{7,}$/i", $value )){ //new regex statement
-		        	$result->invalidate($tag, "Invalid characters");
+		        	$result->invalidate($tag, "El número de contacto es inválido.");
 		        }
 		    }
 		    return $result;
