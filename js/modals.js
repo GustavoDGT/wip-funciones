@@ -158,7 +158,7 @@
 
         //[D] finalmente Activando el modal y agregando clase al HTML
           $modal.addClass('active_modal');
-          //if (!$('html').hasClass('modal_mobile')) $('html').addClass('modal_mobile'); // Para esconder el scroll
+          if (!$('html').hasClass('modal_mobile')) $('html').addClass('modal_mobile'); // Para esconder el scroll
         //[D]
       },
       hide: function($this){
@@ -192,7 +192,7 @@
         // quitando el active al modal
         $('#' + $idModal).removeClass('active_modal'); 
         // Buscamos si existe otro modal activo para no retirar la clase del HTML q quita el scroll
-        //if(!$('#content-modals .active_modal').length) $('html').removeClass('modal_mobile'); // para regresar el scroll
+        if(!$('#content-modals .active_modal').length) $('html').removeClass('modal_mobile'); // para regresar el scroll
       },
       verification: function($btn, dataAttr){
         // Si no existe el atributo 'data modal'
