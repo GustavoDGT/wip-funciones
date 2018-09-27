@@ -207,4 +207,8 @@ jQuery(document).ready(function($) {
 			}
 		}, false );
 	}
+
+	if(window.location.hash) {
+		console.log(window.location.hash);
+	}
 });
