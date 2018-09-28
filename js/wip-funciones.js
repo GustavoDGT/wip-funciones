@@ -1,22 +1,24 @@
 jQuery(document).ready(function($) {
+	hash = window.location.hash;
+
 	function injectStyles(rule) {
-	  var div = $("<div />", {
-	    html: '&shy;<style>' + rule + '</style>'
-	  }).appendTo("body");
+		var div = $("<div />", {
+			html: '&shy;<style>' + rule + '</style>'
+		}).appendTo("body");
 	}
 
 	$('#testimonial').owlCarousel({
-    mouseDrag:true,
-	  items:1,
-	  lazyLoad:false,
-	  rewind:true,
+		mouseDrag:true,
+		items:1,
+		lazyLoad:false,
+		rewind:true,
 		autoplay:true,
 		autoplayTimeout:4000,
 		autoplayHoverPause:true,
-    nav:true,
-    navText: [
-	   "<i class='fa fa-angle-left fa-4x'></i>",
-	   "<i class='fa fa-angle-right fa-4x'></i>"
+		nav:true,
+		navText: [
+		"<i class='fa fa-angle-left fa-4x'></i>",
+		"<i class='fa fa-angle-right fa-4x'></i>"
 		],
 		dots:false,
 		responsive:{
@@ -46,8 +48,8 @@ jQuery(document).ready(function($) {
 		lazyLoad:true,
 		nav:true,
 		navText: [
-			"<i class='fa fa-angle-left fa-4x'></i>",
-			"<i class='fa fa-angle-right fa-4x'></i>"
+		"<i class='fa fa-angle-left fa-4x'></i>",
+		"<i class='fa fa-angle-right fa-4x'></i>"
 		],
 		dots:false,
 		responsive:{
@@ -84,8 +86,8 @@ jQuery(document).ready(function($) {
 		lazyLoad:true,
 		nav:true,
 		navText: [
-			"<i class='fa fa-angle-left fa-4x'></i>",
-			"<i class='fa fa-angle-right fa-4x'></i>"
+		"<i class='fa fa-angle-left fa-4x'></i>",
+		"<i class='fa fa-angle-right fa-4x'></i>"
 		],
 		dots:false,
 		responsive:{
@@ -115,8 +117,8 @@ jQuery(document).ready(function($) {
 		lazyLoad:true,
 		nav:true,
 		navText: [
-			"<i class='fa fa-angle-left fa-4x'></i>",
-			"<i class='fa fa-angle-right fa-4x'></i>"
+		"<i class='fa fa-angle-left fa-4x'></i>",
+		"<i class='fa fa-angle-right fa-4x'></i>"
 		],
 		dots:false,
 		responsive:{
@@ -145,8 +147,8 @@ jQuery(document).ready(function($) {
 		autoplayHoverPause:true,
 		nav:true,
 		navText: [
-			"<i class='fa fa-angle-left fa-4x'></i>",
-			"<i class='fa fa-angle-right fa-4x'></i>"
+		"<i class='fa fa-angle-left fa-4x'></i>",
+		"<i class='fa fa-angle-right fa-4x'></i>"
 		],
 		dots:false,
 		responsive:{
@@ -185,8 +187,8 @@ jQuery(document).ready(function($) {
 	if( $("#course-navigation").length > 0 ) {
 		window.onscroll = function() { wipSticky() };
 
-			var navbar = document.getElementById("course-navigation");
-			var sticky = navbar.offsetTop;
+		var navbar = document.getElementById("course-navigation");
+		var sticky = navbar.offsetTop;
 
 		function wipSticky() {
 			if (window.pageYOffset >= sticky) {
@@ -207,8 +209,13 @@ jQuery(document).ready(function($) {
 			}
 		}, false );
 	}
+	
 
-	if(window.location.hash) {
-		console.log(window.location.hash);
+
+	if(hash) {
+		setTimeout(function() {
+				$('html').animate({scrollTop: $(hash).offset().top - 50}, 1000);  
+  	}, 200);
 	}
+
 });
