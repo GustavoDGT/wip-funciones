@@ -215,7 +215,7 @@ jQuery(document).ready(function($) {
 	if(hash) {
 		setTimeout(function() {
 				$('html').animate({scrollTop: $(hash).offset().top - 50}, 1000);  
-  	}, 500);
+  	}, 1000);
 	}
 
 });
