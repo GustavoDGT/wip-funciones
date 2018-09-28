@@ -1,6 +1,4 @@
 jQuery(document).ready(function($) {
-	hash = window.location.hash;
-
 	function injectStyles(rule) {
 		var div = $("<div />", {
 			html: '&shy;<style>' + rule + '</style>'
@@ -210,12 +208,11 @@ jQuery(document).ready(function($) {
 		}, false );
 	}
 	
-
-
-	if(hash) {
-		setTimeout(function() {
-				$('html').animate({scrollTop: $(hash).offset().top - 50}, 1000);  
-  	}, 1000);
-	}
-
 });
+
+if(	window.location.hash ) {
+	$(window).on('load', function(event) {
+		event.preventDefault();
+		$('html').animate({scrollTop: $(window.location.hash).offset().top - 50}, 1000);  
+	});
+}
