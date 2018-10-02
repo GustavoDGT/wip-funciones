@@ -80,7 +80,7 @@ $detect = $WipFunciones->detect;
 			<a id="wip-facebook" onClick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode( get_the_permalink()); ?>','sharer','toolbar=0,status=0,width=600,height=600');" href="javascript: void(0)" class="share">                           
 				<i class="fa fa-2x fa-facebook"></i>
 			</a>
-			<a id="wip-twitter" href="https://twitter.com/intent/tweet?text=<?php echo get_the_title(); ?>&amp;url=<?php echo urlencode( get_the_permalink() ); ?>&amp;via=<?php echo get_bloginfo( 'name' ); ?>" onclick="javascript:window.open(this.href,
+			<a id="wip-twitter" href="https://twitter.com/intent/tweet?text=<?php echo urlencode( get_the_title() ); ?>&amp;url=<?php echo urlencode( get_the_permalink() ); ?>&amp;via=<?php echo get_bloginfo( 'name' ); ?>" onclick="javascript:window.open(this.href,
   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
 				<i class="fa fa-2x fa-twitter"></i> 
 			</a>

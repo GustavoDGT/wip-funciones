@@ -41,7 +41,7 @@ if( ! empty( $course_data['materials'] ) || ! empty( $course_data['certification
 			<div class="<?php echo $grid; ?> mobile-grid-100 border-section">
 				<h4>BENEFICIOS</h4>
 				<div class="wip-normal-white-line"></div>
-				<p><?php echo $course_data['benefits']; ?></p>
+				<?php echo $course_data['benefits']; ?>
 			</div>
 		<?php endif; ?>
 	</section>
