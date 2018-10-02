@@ -56,8 +56,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			// Load assets
 			add_action( 'wp_enqueue_scripts', array( $this, 'wip_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array ( $this, 'wip_admin_scripts' ) );
-			add_filter( 'style_loader_tag', array( $this, 'wip_remove_type_attr' ), 1, 2 );
-			add_filter( 'script_loader_tag', array( $this, 'wip_remove_type_attr' ), 1, 2 );
+
 			// Tools
 			add_action('wp_footer', array( $this, 'wip_funciones_measurement_in_footer' ), 100);
 			add_action('pre_current_active_plugins', array( $this, 'wip_hide_plugin' ) );
@@ -159,10 +158,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			if( is_admin() && ( $hook == 'post.php' || $hook == 'post-new.php' ) && $typenow == LP_COURSE_CPT ) {
 				wp_enqueue_style( 'custom-admin', WIP_PLUGIN_URL . "css/wip-admin-funciones.css", false, WIP_VERSION, 'all' );
 			}
-		}
-
-		public function wip_remove_type_attr($tag, $handle) {
-			return preg_replace( " /type=['\"]text\/(javascript|css)['\"]/", '', $tag );
 		}
 
 		public function wip_funciones_measurement_in_footer() {
