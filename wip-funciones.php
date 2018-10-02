@@ -56,8 +56,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			// Load assets
 			add_action( 'wp_enqueue_scripts', array( $this, 'wip_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array ( $this, 'wip_admin_scripts' ) );
-			add_filter( 'style_loader_tag', 'wip_remove_type_attr', 10, 2 );
-			add_filter( 'script_loader_tag', 'wip_remove_type_attr', 10, 2 );
+			add_filter( 'style_loader_tag', array( $this, 'wip_remove_type_attr' ), 10, 2 );
+			add_filter( 'script_loader_tag', array( $this, 'wip_remove_type_attr' ), 10, 2 );
 			// Tools
 			add_action('wp_footer', array( $this, 'wip_funciones_measurement_in_footer' ), 100);
 			add_action('pre_current_active_plugins', array( $this, 'wip_hide_plugin' ) );
