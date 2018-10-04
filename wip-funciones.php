@@ -61,8 +61,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action('wp_footer', array( $this, 'wip_funciones_measurement_in_footer' ), 100);
 			add_action('pre_current_active_plugins', array( $this, 'wip_hide_plugin' ) );
 			add_filter( 'views_plugins', array( $this, 'wip_views_plugins' ) );
-			add_action( 'wp_head', array( $this, 'og_image_type') );
-			add_filter( 'wpseo_opengraph_type', array( $this, 'yoast_change_opengraph_type' ) );
 			remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); 
 			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' ); 
 			remove_action( 'wp_print_styles', 'print_emoji_styles' ); 
