@@ -199,7 +199,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function og_image_type() {
 			if( is_front_page() ) {
 				?><meta property="og:image:type" content="image/jpeg"/>
-					<meta property="article:published_time" content="<?php echo get_the_date(); ?>" />
+					<meta property="article:published_time" content="<?php echo get_the_date('c'); ?>" />
 				<?php
 			}
 		}
