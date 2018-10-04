@@ -106,7 +106,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_filter( 'wpcf7_validate_tel', array( $this, 'custom_text_validation' ), 20, 2);
 			add_filter( 'wpcf7_validate_tel*', array( $this, 'custom_text_validation' ), 20, 2);
 			// YOAST SEO
-			add_filter('wpseo_opengraph_type', '__return_false' );
+			add_filter('wpseo_opengraph_type', array( $this, 'wip_change_opengraph_type' ) );
 		}
 
 		public function wip_includes() {
@@ -676,13 +676,13 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		    return $result;
 		}
 
-		public function yoast_change_opengraph_type( $type ) {
-			  	if ( is_home() ) {
-			  		return 'article';
-			  	} else {
-			  		return $type;
-			  	}
+		public function wip_change_opengraph_type( $type ) {
+			if ( is_home() ) {
+				return 'article';
+			} else {
+				return $type;
 			}
+		}
 	}
 
 	$WipFunciones = new WipFunciones();
