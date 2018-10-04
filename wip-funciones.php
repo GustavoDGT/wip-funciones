@@ -198,7 +198,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 
 		public function og_image_type() {
 			if( is_front_page() ) {
-				?><meta property="og:image:type" content="image/jpeg"/>
+				?><meta property="og:image:type" content="image/jpg" />
 					<meta property="article:published_time" content="<?php echo get_the_date('c'); ?>" />
 				<?php
 			}
@@ -206,7 +206,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 
 		public function yoast_change_opengraph_type( $type ) {
 		  if ( is_front_page() ) {
-		  	return 'article';
+		  	return 'Article';
 		  } else {
 		  	return $type;
 		  }
