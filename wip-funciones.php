@@ -61,6 +61,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action('wp_footer', array( $this, 'wip_funciones_measurement_in_footer' ), 100);
 			add_action('pre_current_active_plugins', array( $this, 'wip_hide_plugin' ) );
 			add_filter( 'views_plugins', array( $this, 'wip_views_plugins' ) );
+			add_action( 'wp_head', array( $this, 'og_image_type') );
 			remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); 
 			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' ); 
 			remove_action( 'wp_print_styles', 'print_emoji_styles' ); 
@@ -105,8 +106,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_filter( 'wpcf7_form_tag', array( $this, 'dynamic_field_values' ), 10, 2);
 			add_filter( 'wpcf7_validate_tel', array( $this, 'custom_text_validation' ), 20, 2);
 			add_filter( 'wpcf7_validate_tel*', array( $this, 'custom_text_validation' ), 20, 2);
-			// YOAST SEO
-			add_filter('wpseo_opengraph_type', array( $this, 'wip_change_opengraph_type' ) );
 		}
 
 		public function wip_includes() {
@@ -194,6 +193,12 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_views_plugins( $views ) {
 			$views = array();
 			return $views;
+		}
+
+		public function og_image_type() {
+			if(is_home()) {
+				?><meta property="og:image:type" content="image/jpeg"/><?php
+			}
 		}
 
 		public function wip_before_header() {
@@ -674,14 +679,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		        }
 		    }
 		    return $result;
-		}
-
-		public function wip_change_opengraph_type( $type ) {
-			if ( is_home() ) {
-				return 'article';
-			} else {
-				return $type;
-			}
 		}
 	}
 
