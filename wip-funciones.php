@@ -196,7 +196,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		}
 
 		public function og_image_type() {
-			if(is_home()) {
+			if(is_front_page()) {
 				?><meta property="og:image:type" content="image/jpeg"/><?php
 			}
 		}
