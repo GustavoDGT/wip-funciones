@@ -106,7 +106,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_filter( 'wpcf7_validate_tel', array( $this, 'custom_text_validation' ), 20, 2);
 			add_filter( 'wpcf7_validate_tel*', array( $this, 'custom_text_validation' ), 20, 2);
 			// YOAST SEO
-			add_filter( 'wpseo_opengraph_type', array( $this, 'yoast_change_opengraph_type' ), 10, 1 );	
+			add_filter( 'wpseo_opengraph_type', array( $this, 'yoast_change_opengraph_type' ), 999, 1 );	
 		}
 
 		public function wip_includes() {
