@@ -196,7 +196,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		}
 
 		public function yst_wpseo_change_og_locale( $locale ) {
-			return 'es_PE';
+			$locale = 'es_PE';
+			return $locale;
 		}
 
 		public function wip_before_header() {
