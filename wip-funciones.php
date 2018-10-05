@@ -61,7 +61,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action('wp_footer', array( $this, 'wip_funciones_measurement_in_footer' ), 100);
 			add_action('pre_current_active_plugins', array( $this, 'wip_hide_plugin' ) );
 			add_filter( 'views_plugins', array( $this, 'wip_views_plugins' ) );
-			add_action( 'wp_head', array( $this, 'wip_og_publish_date') );
+			add_filter( 'wpseo_locale', array( $this, 'yst_wpseo_change_og_locale' ) );
 			remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); 
 			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' ); 
 			remove_action( 'wp_print_styles', 'print_emoji_styles' ); 
@@ -195,10 +195,8 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			return $views;
 		}
 
-		public function wip_og_publish_date() {
-			if( is_front_page() ) {
-				?><meta property="article:published_time" content="<?php echo get_the_date('c'); ?>" /><?php
-			}
+		public function yst_wpseo_change_og_locale( $locale ) {
+			return 'es_PE';
 		}
 
 		public function wip_before_header() {
