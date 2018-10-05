@@ -61,7 +61,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action('wp_footer', array( $this, 'wip_funciones_measurement_in_footer' ), 100);
 			add_action('pre_current_active_plugins', array( $this, 'wip_hide_plugin' ) );
 			add_filter( 'views_plugins', array( $this, 'wip_views_plugins' ) );
-			add_filter( 'wpseo_locale', array( $this, 'yst_wpseo_change_og_locale' ), 999, 1 );
 			remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); 
 			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' ); 
 			remove_action( 'wp_print_styles', 'print_emoji_styles' ); 
@@ -193,11 +192,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_views_plugins( $views ) {
 			$views = array();
 			return $views;
-		}
-
-		public function yst_wpseo_change_og_locale( $locale ) {
-			$locale = 'es_PE';
-			return $locale;
 		}
 
 		public function wip_before_header() {
@@ -374,7 +368,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 
 		public function wip_admin_langauge( $locale ) {
 			if(is_admin()) {
-				$locale = 'es_ES';
+				$locale = 'es_PE';
 			}
 
 			return $locale;
