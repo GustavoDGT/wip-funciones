@@ -368,7 +368,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 
 		public function wip_admin_langauge( $locale ) {
 			if(is_admin()) {
-				$locale = 'es_PE';
+				$locale = 'es_ES';
 			}
 
 			return $locale;
