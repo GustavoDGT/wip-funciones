@@ -70,7 +70,7 @@ $detect = $WipFunciones->detect;
 				<h4><b>LUGAR</b></h4>
 				<p><?php echo $course_data['place']; ?></p>
 			<?php endif; ?>
-			<?php if( strtolower( $course->get_price_html() ) != 'gratis' ): ?>
+			<?php if( !in_array( strtolower( $course->get_price_html() ), array( 'free', 'gratis' ) ) ): ?>
 				<h4><b>INVERSIÓN</b></h4>
 				<p><?php echo $course->get_price_html(); ?></p>
 			<?php endif; ?>
