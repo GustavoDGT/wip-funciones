@@ -480,7 +480,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			public function wip_course_payment_meta_boxes( $meta_box ) {
 				//Edit fields 
 				foreach ($meta_box['fields'] as $key => $field):
-					if( in_array( $field['id'], array( '_lp_sale_start', '_lp_sale_end', '_lp_sale_price', '_lp_required_enroll' ) ) ):
+					if( in_array( $field['id'], array( '_lp_sale_start', '_lp_sale_end', '_lp_sale_price' ) ) ):
 						unset( $meta_box['fields'][$key] );
 					endif;
 				endforeach;
