@@ -40,6 +40,10 @@ if( empty( $course_data['materials'] ) && empty( $course_data['certification'] )
 $course_data['review_name'] = get_post_meta( $course->_id, '_lp_review_name', true );
 $course_data['review'] = get_post_meta( $course->_id, '_lp_review', true );
 if( empty($course_data['review_name']) || empty($course_data['review']) ) unset( $tabs['reviews'] );
+
+// Remove instructores in blockchain
+if( $course->_id == 1168) unset( $tabs['instructor'] );
+
 /**
  * @deprecated
  */
