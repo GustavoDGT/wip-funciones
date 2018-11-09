@@ -13,7 +13,7 @@
  * Prevent loading this file directly
  */
 defined( 'ABSPATH' ) || exit();
-
+var_dump('hola');
 global $course_data;
 
 $course = learn_press_get_course();
