@@ -110,6 +110,12 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function wip_includes() {
 			include WIP_PLUGIN_PATH . 'inc/Mobile_Detect.php';
 			$this->detect = new Mobile_Detect;
+
+			// CPT
+			include WIP_PLUGIN_PATH . 'modules/testimonial.php';
+
+			// Load sections generatepress
+			include WIP_PLUGIN_PATH . 'sections/generate-sections.php';
 		}
 
 		public function print_filters_for( $hook = '' ) {

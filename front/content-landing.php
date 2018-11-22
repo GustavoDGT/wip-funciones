@@ -49,6 +49,20 @@ if( $course->_id == 1168) unset( $tabs['instructor'] );
  */
 do_action( 'learn_press_before_content_landing' );			
 ?>
+<div id="wip-page-header" class="text-white py-5" style="background-image: url( '<?php echo $upload_path . '/2018/08/DESARROLLO-1.jpg'; ?>' ); background-size: cover; background-repeat: no-repeat; background-position: center;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-4">
+      	<p>CURSO TALLER</p>
+      	<hr class="hidden-md-up border-light">
+        <h1 class="h1 mb-3" itemprop="headline">BLOCKCHAIN: Aplicaciones</h1>
+        <hr class="hidden-md-up border-light">
+        <h3 class="mb-3"><span>INICIO: </span>01 de Diciembre del 2018<br></h3>
+        <a target="_blank" href="<?php echo get_bloginfo( 'url' ) . '/nosotros'; ?>" class="btn btn-lg btn-blue waves-effect waves-light ml-0">INSCRÍBETE</a>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="course-landing-summary">
 	<div id="learn-press-course-tabs" class="course-tabs">
 		<nav itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope" id="course-navigation" class="secondary-navigation stuckElement">
@@ -66,7 +80,7 @@ do_action( 'learn_press_before_content_landing' );
 						'menu_class' => '',
 						'fallback_cb' => function() use( &$tabs ) { ?>
 							<div id="course-menu" class="main-nav">
-								<ul <?php generate_menu_class(array( 'secondary-menu', 'learn-press-nav-tabs', 'course-nav-tab' )); ?>>
+								<ul class="secondary-menu learn-press-nav-tabs course-nav-tab">
 									<?php foreach ( $tabs as $key => $tab ) { ?>
 										<?php $classes = array( 'course-nav course-nav-tab-' . esc_attr( $key ) );
 										if ( ! empty( $tab['active'] ) && $tab['active'] ) {
