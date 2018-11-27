@@ -87,7 +87,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			add_action( 'locale', array( $this, 'wip_admin_langauge' ) );
 			add_action( 'admin_menu', array( $this, 'wip_admin_menu' ) );
 			add_filter( 'register_post_type_args', array( $this, 'wip_edit_post_type_args' ), 11, 2 );
-			add_action( 'init', array( $this, 'wip_edit_taxonomy_args' ), 9999 );
+			//add_action( 'init', array( $this, 'wip_edit_taxonomy_args' ), 9999 );
 			add_filter( 'learn_press_admin_tabs_info', array( $this, 'wip_admin_tabs_info' ) );
 			add_filter( 'rwmb_meta_boxes', array( $this, 'wip_register_meta_boxes' ) );
 			add_filter( 'learn-press/admin-default-styles', array( $this, 'wip_learnpress_admin_custom_enqueue' ) );
@@ -113,6 +113,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 
 			// CPT
 			include WIP_PLUGIN_PATH . 'modules/testimonial.php';
+			include WIP_PLUGIN_PATH . 'modules/course.php';
 
 			// Load sections generatepress
 			include WIP_PLUGIN_PATH . 'sections/generate-sections.php';
