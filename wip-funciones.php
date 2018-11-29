@@ -214,8 +214,6 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * @return String
 		 */
 		public function wip_generate_logo( $logo_url ) {
-			global $post, $WipFunciones;
-			$detect = $WipFunciones->detect;
 			$image = get_post_meta($post->ID, 'custom_header_logo', true);
 			if ( ! empty( $image ) && ! $detect->isMobile() ) $logo_url = $image;
 			return $logo_url;
@@ -849,10 +847,10 @@ add_shortcode( 'WIP_NEWS', 'wip_news_shortcode' );
 
 function convert_spanish_date( $date, $format = '') {
 	if($format == 'tiny') {
-		return 	date( 'd\/m\/Y', strtotime( $date ) );
+		return 	date( 'd\/m\/Y', $date );
 	} else {
-		$day = date( 'd', strtotime($date));
-		$m = date( 'n', strtotime($date));
+		$day = date( 'd', $date );
+		$m = date( 'n', $date );
 		if ($m==1)  { $month = "Enero"; }
 		if ($m==2)  { $month = "Febrero"; }
 		if ($m==3)  { $month = "Marzo"; }
@@ -865,7 +863,7 @@ function convert_spanish_date( $date, $format = '') {
 		if ($m==10) { $month = "Octubre"; }
 		if ($m==11) { $month = "Noviembre"; }
 		if ($m==12) { $month = "Diciembre"; };
-		$year = date( 'Y', strtotime($date) );
+		$year = date( 'Y', $date );
 
 		return ( $day . ' de ' . $month . ' del ' . $year );	
 	}

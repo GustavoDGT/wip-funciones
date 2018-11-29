@@ -3,6 +3,7 @@ define('WIP_COURSE_POST_TYPE', 'eb_course');
 //define('WIP_SLIDER_TAXONOMY', 'slide-category');
 
 function wip_course_meta_boxes( $meta_boxes ) {
+    $tabs = course_navigation_tabs();
 	// Description box
     $meta_boxes[] = array(
     	'id'         => 'course_settings',
@@ -10,28 +11,7 @@ function wip_course_meta_boxes( $meta_boxes ) {
     	'context'    => 'normal',
         'priority'   => 'low',
     	'post_types' => WIP_COURSE_POST_TYPE,
-    	'tabs'      => array(
-            'description'	=> array(
-                'label' => 'Descripción',
-                'icon'  => 'dashicons-email', // Dashicon
-            ),
-            'addressed' => array(
-                'label' => 'Dirigido a',
-                'icon'  => 'dashicons-email', // Dashicon
-            ),
-            'general'	=> array(
-            	'label' => 'General',
-                'icon'  => 'dashicons-email', // Dashicon
-            ),
-            'instructor'	=> array(
-            	'label' => 'Instructor',
-                'icon'  => 'dashicons-email', // Dashicon
-            ),
-            'reviews'	=> array(
-            	'label' => 'Opiniones',
-                'icon'  => 'dashicons-email', // Dashicon
-            ),
-        ),
+    	'tabs'      => $tabs,
         'tab_style' => 'left',
         'fields' => array(
             array(
@@ -49,8 +29,15 @@ function wip_course_meta_boxes( $meta_boxes ) {
                 'desc' 		 => __( 'Fechas de Inicio del curso', 'WIP_LANG' ),
             ),
             array(
+                'name'  => 'Sesiones',
+                'id'    => WIP_PREFIX . '_sessions',
+                'type'  => 'number',
+                'tab'   => 'description',
+                'desc' => __( 'Número de sesiones que impartirá el curso.', 'WIP_LANG' ),
+            ),
+            array(
             	'name'	=> 'Horarios',
-            	'id'	=> WIP_PREFIX . '_schedule',
+            	'id'	=> WIP_PREFIX . '_schedules',
             	'type'	=> 'textarea',
             	'cols'	=> 5,
             	'tab'	=> 'description',
@@ -74,12 +61,11 @@ function wip_course_meta_boxes( $meta_boxes ) {
 			),
             array(
             	'name' => 'Dirigido a',
-            	'id'   => WIP_PREFIX . '_addressed',
+            	'id'   => WIP_PREFIX . '_addressed_to',
             	'type' => 'wysiwyg',
             	'options' => array(
             		'textarea_rows' => 5,
             		'media_buttons' => false,
-            		'tinymce'		=> true		
             	),
             	'tab'	=> 'addressed',
             	'desc' => __( 'Para quiénes va dirigido el curso. <html>', 'WIP_LANG' ),
@@ -181,3 +167,29 @@ function wip_course_meta_boxes( $meta_boxes ) {
 }
 
 add_filter( 'rwmb_meta_boxes', 'wip_course_meta_boxes' );
+
+function course_navigation_tabs() {
+    $tabs = array(
+        'description'   => array(
+            'label' => 'Descripción',
+            'icon'  => 'dashicons-email', // Dashicon
+            ),
+        'addressed' => array(
+            'label' => 'Dirigido a',
+               'icon'  => 'dashicons-email', // Dashicon
+            ),
+        'general'   => array(
+            'label' => 'General',
+            'icon'  => 'dashicons-email', // Dashicon
+            ),
+        'instructor'    => array(
+            'label' => 'Instructor',
+            'icon'  => 'dashicons-email', // Dashicon
+            ),
+        'reviews'   => array(
+            'label' => 'Opiniones',
+            'icon'  => 'dashicons-email', // Dashicon
+            ),
+        );
+    return $tabs;
+}
