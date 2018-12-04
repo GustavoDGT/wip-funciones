@@ -62,12 +62,10 @@ function wip_course_meta_boxes( $meta_boxes ) {
             array(
             	'name' => 'Dirigido a',
             	'id'   => WIP_PREFIX . '_addressed_to',
-            	'type' => 'wysiwyg',
-            	'options' => array(
-            		'textarea_rows' => 5,
-            		'media_buttons' => false,
-            	),
-            	'tab'	=> 'addressed',
+            	'type' => 'textarea',
+                'cols'  => 5,
+            	'clone'=> true,
+            	'tab'  => 'addressed',
             	'desc' => __( 'Para quiénes va dirigido el curso. <html>', 'WIP_LANG' ),
 
             ),
@@ -112,7 +110,7 @@ function wip_course_meta_boxes( $meta_boxes ) {
             ),
             array(
             	'name'        => 'Instructor del curso',
-            	'id'          => WIP_PREFIX . '_addressed',
+            	'id'          => WIP_PREFIX . '_instructor',
             	'type'        => 'user',
             	'field_type'  => 'select_advanced',
             	'placeholder' => __( 'Selecciona un instructor', 'WIP_LANG' ),
@@ -134,6 +132,18 @@ function wip_course_meta_boxes( $meta_boxes ) {
             			'id'   => WIP_PREFIX . '_review_name',
             			'type' => 'text',
             		),
+                    array(
+                        'name' => 'Valoración',
+                        'id'   => WIP_PREFIX . '_review_stars',
+                        'type' => 'select',
+                        'options' => array(
+                            1 => '1',
+                            2 => '2',
+                            3 => '3',
+                            4 => '4',
+                            5 => '5'
+                        )
+                    ),
             		array(
             			'name' => 'Opinión',
             			'id'   => WIP_PREFIX . '_review',
@@ -172,7 +182,7 @@ function course_navigation_tabs() {
     $tabs = array(
         'description'   => array(
             'label' => 'Descripción',
-            'icon'  => 'dashicons-email', // Dashicon
+            'icon'  => 'dashicons-welcome-write-blog', // Dashicon
             ),
         'addressed' => array(
             'label' => 'Dirigido a',
@@ -180,15 +190,15 @@ function course_navigation_tabs() {
             ),
         'general'   => array(
             'label' => 'General',
-            'icon'  => 'dashicons-email', // Dashicon
+            'icon'  => 'dashicons-admin-generic', // Dashicon
             ),
         'instructor'    => array(
             'label' => 'Instructor',
-            'icon'  => 'dashicons-email', // Dashicon
+            'icon'  => 'dashicons-businessman', // Dashicon
             ),
         'reviews'   => array(
-            'label' => 'Opiniones',
-            'icon'  => 'dashicons-email', // Dashicon
+            'label' => 'Casos de éxito',
+            'icon'  => 'dashicons-heart', // Dashicon
             ),
         );
     return $tabs;

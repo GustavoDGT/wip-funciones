@@ -8,14 +8,14 @@
 	Author URI:		http://www.webideaperu.net
  * ---------------------------------------------------------------------- */
 
-defined( 'ABSPATH' ) || exit();
+	defined( 'ABSPATH' ) || exit();
 
-if ( ! defined( 'WIP_PLUGIN_URL' ) ) define('WIP_PLUGIN_URL', plugin_dir_url( __FILE__ ));
-if ( ! defined( 'WIP_PLUGIN_PATH' ) ) define('WIP_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
-if ( ! defined( 'WIP_PREFIX' ) ) define('WIP_PREFIX', 'wip');
-if ( ! defined( 'WIP_VERSION' ) ) define('WIP_VERSION', '1.0');
+	if ( ! defined( 'WIP_PLUGIN_URL' ) ) define('WIP_PLUGIN_URL', plugin_dir_url( __FILE__ ));
+	if ( ! defined( 'WIP_PLUGIN_PATH' ) ) define('WIP_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
+	if ( ! defined( 'WIP_PREFIX' ) ) define('WIP_PREFIX', 'wip');
+	if ( ! defined( 'WIP_VERSION' ) ) define('WIP_VERSION', '1.0');
 
-if ( ! class_exists( 'WipFunciones' ) ) {
+	if ( ! class_exists( 'WipFunciones' ) ) {
 
 	/**
 	* CLass WipFunciones
@@ -44,15 +44,20 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 */
 		public $detect;
 
+		public $extDB;
+
 		function __construct()
-		{
+		{	
+
+			add_post_type_support( 'page', 'excerpt' );
 			// Prevent duplicate unwanted hooks
-				if ( self::$_instance ) {
-					return;
-				}
-				self::$_instance = $this;
+			if ( self::$_instance ) {
+				return;
+			}
+			self::$_instance = $this;
 			// Includes files
 			$this->wip_includes();
+
 			// Load assets
 			add_action( 'wp_enqueue_scripts', array( $this, 'wip_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array ( $this, 'wip_admin_scripts' ) );
@@ -102,6 +107,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			// Shortcodes
 			add_shortcode( 'WIP_BREADCRUMB', array( $this, 'course_breadcrumb_st' ) );		
 			// CF7 Custom
+			//add_action( 'wpcf7_before_send_mail', array( $this, 'action_wpcf7_before_send_mail'), 10, 1 ); 
 			add_filter( 'wpcf7_form_tag', array( $this, 'dynamic_field_values' ), 10, 2);
 			add_filter( 'wpcf7_validate_tel', array( $this, 'custom_text_validation' ), 20, 2);
 			add_filter( 'wpcf7_validate_tel*', array( $this, 'custom_text_validation' ), 20, 2);
@@ -111,6 +117,10 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			include WIP_PLUGIN_PATH . 'inc/Mobile_Detect.php';
 			$this->detect = new Mobile_Detect;
 
+			// External Database
+			//include WIP_PLUGIN_PATH . 'inc/CRMItsystemsDB.class.php';
+			//$this->extDB = new CRMItsystemsDB;
+
 			// CPT
 			include WIP_PLUGIN_PATH . 'modules/testimonial.php';
 			include WIP_PLUGIN_PATH . 'modules/course.php';
@@ -119,12 +129,13 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			include WIP_PLUGIN_PATH . 'sections/generate-sections.php';
 		}
 
+		// add the action 
 		public function print_filters_for( $hook = '' ) {
 			global $wp_filter;
 			if( empty( $hook ) || !isset( $wp_filter[$hook] ) )
 				return;
 
-		    print '<pre style="margin-left: 300px; ">';
+			print '<pre style="margin-left: 300px; ">';
 			print_r( $wp_filter[$hook] );
 			print '</pre>';
 		}
@@ -133,17 +144,25 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * Load assets in front
 		 */
 		public function wip_scripts() {
+			//echo phpinfo(); die;
+			/*
+			$myPDO = new PDO('pgsql:host=190.117.126.164;dbname=postgres', 'crm_zapier', '$apier%u');
+			$result = $myPDO->query('SELECT COUNT(*) FROM crm.interesado');
+			foreach ($result as $key => $value) {
+				var_dump($value);
+			}*/
+
 			// Only home and course single
 			if ( is_front_page() || is_singular(LP_COURSE_CPT) || is_page_template( array( 'page-contact.php', 'page-inhouse.php', 'page-soluciones.php', 'page-alquiler.php', 'page-nosotros.php' ) )) {
 				wp_enqueue_style( 'owl-css', WIP_PLUGIN_URL . "css/owl.carousel.min.css", false, WIP_VERSION, 'all' );
 				wp_enqueue_style( 'owl-theme-css', WIP_PLUGIN_URL . "css/owl.theme.default.min.css", false, WIP_VERSION, 'all' );
-				wp_enqueue_script( 'owl-js', WIP_PLUGIN_URL . 'js/owl.carousel.min.js', array('jquery'), WIP_VERSION, true);
+				//wp_enqueue_script( 'owl-js', WIP_PLUGIN_URL . 'js/owl.carousel.min.js', array('jquery'), WIP_VERSION, true);
 				wp_enqueue_script( 'custom-js', WIP_PLUGIN_URL . 'js/wip-funciones.js', array('jquery'), WIP_VERSION, true);
 			}
 
 			// Don't animate in home
 			if( ! is_front_page() ) {
-  				wp_enqueue_style( 'animate-css', WIP_PLUGIN_URL . "css/animate.css", false, GENERATE_VERSION, 'all' );	
+				wp_enqueue_style( 'animate-css', WIP_PLUGIN_URL . "css/animate.css", false, GENERATE_VERSION, 'all' );	
 			}
 
 			if( is_front_page() ) {
@@ -183,7 +202,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			$hidearr = array(
 				'gp-premium/gp-premium.php'.
 				'learnpress/learnpress.php'
-				);
+			);
 			$myplugins = $wp_list_table->items;
 			foreach ( $myplugins as $key => $val ) {
 				if ( in_array( $key,$hidearr ) ) {
@@ -205,10 +224,10 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			?>
 			<!-- Google Tag Manager (noscript) -->
 			<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V3P64V"
-			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-			<!-- End Google Tag Manager (noscript) -->
-			<?php
-		}
+				height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+				<!-- End Google Tag Manager (noscript) -->
+				<?php
+			}
 		/**
 		 * Change Logo URL for custom meta of POST ID
 		 * @return String
@@ -233,9 +252,9 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * Disable title in course single page
 		 */
 		public function wip_disable_cpt_elements() {
-		  if ( LP_COURSE_CPT == get_post_type() ) {
-		    add_filter( 'generate_show_title', '__return_false' );
-		  }
+			if ( LP_COURSE_CPT == get_post_type() ) {
+				add_filter( 'generate_show_title', '__return_false' );
+			}
 		}
 
 		/**
@@ -244,9 +263,9 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * @return Array
 		 */
 		public function wip_add_system_fonts( $fonts ) {
-		    $fonts[] = 'SF Pro Text';
-		    $fonts[] = 'SF Pro Display';
-		    return $fonts;
+			$fonts[] = 'SF Pro Text';
+			$fonts[] = 'SF Pro Display';
+			return $fonts;
 		}
 
 		public function wip_after_content() {
@@ -325,31 +344,31 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			$defaults['overview']['title'] = 'Descripción';
 			// Dirigido a
 			$defaults['addressed'] = array(
-					'title'    => __( 'Dirigido a', 'learnpress' ),
-					'priority' => 12,
-					'callback' => array( $this, 'learn_press_course_addressed_tab' )
-				);
+				'title'    => __( 'Dirigido a', 'learnpress' ),
+				'priority' => 12,
+				'callback' => array( $this, 'learn_press_course_addressed_tab' )
+			);
 			// Datos generales
 			$defaults['general'] = array(
-					'title'    => __( 'Datos generales', 'learnpress' ),
-					'priority' => 13,
-					'callback' => array( $this, 'learn_press_course_general_tab' )
-				);
+				'title'    => __( 'Datos generales', 'learnpress' ),
+				'priority' => 13,
+				'callback' => array( $this, 'learn_press_course_general_tab' )
+			);
 			// Instructor
 			$defaults['instructor']['title'] = 'Instructores';
 			$defaults['instructor']['priority'] = 14;
 			//  Casos de éxito
 			$defaults['reviews'] = array(
-					'title'    => __( 'Casos de éxito', 'learnpress' ),
-					'priority' => 15,
-					'callback' => array( $this, 'learn_press_course_reviews_tab' )
-				);
+				'title'    => __( 'Casos de éxito', 'learnpress' ),
+				'priority' => 15,
+				'callback' => array( $this, 'learn_press_course_reviews_tab' )
+			);
 			// Inscripción
 			$defaults['enroll'] = array(
-					'title'    => __( 'Inscríbete', 'learnpress' ),
-					'priority' => 16,
-					'callback' => array( $this, 'learn_press_course_enroll_tab' )
-				);
+				'title'    => __( 'Inscríbete', 'learnpress' ),
+				'priority' => 16,
+				'callback' => array( $this, 'learn_press_course_enroll_tab' )
+			);
 			// Delete currifculum
 			unset($defaults['curriculum']);
 			return $defaults;
@@ -392,12 +411,12 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		 * @return Array
 		 */
 		public function wip_edit_post_type_args( $args, $post_type ) {
-		 
-		    if ( $post_type == LP_COURSE_CPT ){
+
+			if ( $post_type == LP_COURSE_CPT ){
 		        $args['show_in_menu'] = true; // true
 		        $args['supports'][] = 'page-attributes'; //page-attributes
 		    }
-		 
+
 		    return $args;
 		}
 
@@ -406,16 +425,16 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		    $taxonomy_args = get_taxonomy( 'course_tag' ); // returns an object
 
 		    $taxonomy_args->labels = array(
-						'name'          => __( 'Programas', 'WIP_domain' ),
-						'menu_name'     => __( 'Programa', 'WIP_domain' ),
-						'singular_name' => __( 'Programa', 'WIP_domain' ),
-						'add_new_item'  => __( 'Añadir nuevo programa', 'WIP_domain' ),
-						'all_items'     => __( 'Todos los programas', 'WIP_domain' ),
-						'parent_item_colon'  => __( 'Programa principal:', 'WIP_domain' ),
-			);
+		    	'name'          => __( 'Programas', 'WIP_domain' ),
+		    	'menu_name'     => __( 'Programa', 'WIP_domain' ),
+		    	'singular_name' => __( 'Programa', 'WIP_domain' ),
+		    	'add_new_item'  => __( 'Añadir nuevo programa', 'WIP_domain' ),
+		    	'all_items'     => __( 'Todos los programas', 'WIP_domain' ),
+		    	'parent_item_colon'  => __( 'Programa principal:', 'WIP_domain' ),
+		    );
 
 		    $taxonomy_args->rewrite['hierarchical'] = true;
-			$taxonomy_args->hierarchical = true;
+		    $taxonomy_args->hierarchical = true;
 
 		    // re-register the taxonomy
 		    register_taxonomy( 'course_tag', array( LP_COURSE_CPT ), (array) $taxonomy_args );
@@ -443,9 +462,9 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 						'id'    => WIP_PREFIX . '_thumb_image',
 						'type'  => 'image_advanced',
 						'max_file_uploads' => 1,
-						),
-					)
-				);
+					),
+				)
+			);
 
 			return $meta_boxes;
 		}
@@ -455,7 +474,7 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 			foreach ($meta_box['fields'] as $key => $field):
 				if( $field['id'] == '_lp_duration'):
 					$meta_box['fields'][$key]['type'] = 'number';
-				$meta_box['fields'][$key]['std'] = 10;
+					$meta_box['fields'][$key]['std'] = 10;
 				endif;
 				if( in_array( $field['id'], array( '_lp_max_students', '_lp_students', '_lp_retake_count', '_lp_block_lesson_content' ) ) ):
 					unset( $meta_box['fields'][$key] );
@@ -467,146 +486,146 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 				'id'   => '_lp_schedules',
 				'type' => 'textarea',
 				'desc' => __( 'Horarios de los cursos.', 'learnpress' ),
-				);
+			);
 			$meta_box['fields'][] = array(
 				'name' => 'lugar',
 				'id'   => '_lp_place',
 				'type' => 'textarea',
 				'desc' => __( 'Lugar en que se impartira el curso.', 'learnpress' ),
-				);
+			);
 			$meta_box['fields'][] = array(
 				'id'    => '_lp_file',
 				'type'  => 'file_advanced',
 				'max_file_uploads' => 1,
-				);
+			);
 			return $meta_box;
 		}
 
-			public function wip_course_payment_meta_boxes( $meta_box ) {
+		public function wip_course_payment_meta_boxes( $meta_box ) {
 				//Edit fields 
-				foreach ($meta_box['fields'] as $key => $field):
-					if( in_array( $field['id'], array( '_lp_sale_start', '_lp_sale_end', '_lp_sale_price', '_lp_required_enroll' ) ) ):
-						unset( $meta_box['fields'][$key] );
-					endif;
-				endforeach;
+			foreach ($meta_box['fields'] as $key => $field):
+				if( in_array( $field['id'], array( '_lp_sale_start', '_lp_sale_end', '_lp_sale_price', '_lp_required_enroll' ) ) ):
+					unset( $meta_box['fields'][$key] );
+				endif;
+			endforeach;
 
-					$meta_box['fields'][] = array(
-						'name'       => __( 'Fechas de Inicio', 'learnpress' ),
-						'id'         => '_lp_date_start',
-						'type'       => 'datetime',
-						'desc' 		 => 'Fechas de Inicio del curso',
-						'clone'      => true,
-						'max_clone'  => 2,
-						);
+			$meta_box['fields'][] = array(
+				'name'       => __( 'Fechas de Inicio', 'learnpress' ),
+				'id'         => '_lp_date_start',
+				'type'       => 'datetime',
+				'desc' 		 => 'Fechas de Inicio del curso',
+				'clone'      => true,
+				'max_clone'  => 2,
+			);
 
-				return $meta_box;
-			}
+			return $meta_box;
+		}
 
-			public function wip_add_course_meta_boxes( $course_tabs ) {
+		public function wip_add_course_meta_boxes( $course_tabs ) {
 				// Delete reviews original functionality
-				unset($course_tabs['review_logs']);
+			unset($course_tabs['review_logs']);
 
 				// Add additional info tab
-				$course_tabs['additional_info'] = new RW_Meta_Box(
+			$course_tabs['additional_info'] = new RW_Meta_Box(
+				array(
+					'id'       => 'course_additional',
+					'title'    => __( 'Información Adicional', 'learnpress' ),
+					'pages'    => array( LP_COURSE_CPT ),
+					'priority' => 'high',
+					'icon'     => 'dashicons-admin-tools',
+					'fields'   => array(
 						array(
-							'id'       => 'course_additional',
-							'title'    => __( 'Información Adicional', 'learnpress' ),
-							'pages'    => array( LP_COURSE_CPT ),
-							'priority' => 'high',
-							'icon'     => 'dashicons-admin-tools',
-							'fields'   => array(
-								array(
-									'name' => 'Dirigido a',
-									'id'   => '_lp_addressed',
-									'type' => 'textarea',
-									'desc' => __( 'Para quiénes va dirigido el curso.', 'learnpress' ),
-									'clone'=> true
-									),
-								array(
-									'name' => 'materiales',
-									'id'   => '_lp_materials',
-									'type' => 'textarea',
-									'desc' => __( 'Los materiales donde se impartirá el curso. <html>', 'learnpress' ),
+							'name' => 'Dirigido a',
+							'id'   => '_lp_addressed',
+							'type' => 'textarea',
+							'desc' => __( 'Para quiénes va dirigido el curso.', 'learnpress' ),
+							'clone'=> true
+						),
+						array(
+							'name' => 'materiales',
+							'id'   => '_lp_materials',
+							'type' => 'textarea',
+							'desc' => __( 'Los materiales donde se impartirá el curso. <html>', 'learnpress' ),
 
-									),
-								array(
-									'name' => 'certificación',
-									'id'   => '_lp_certification',
-									'type' => 'textarea',
-									'desc' => __( 'Información sobre la certificación del curso. <html>', 'learnpress' ),
+						),
+						array(
+							'name' => 'certificación',
+							'id'   => '_lp_certification',
+							'type' => 'textarea',
+							'desc' => __( 'Información sobre la certificación del curso. <html>', 'learnpress' ),
 
-									),
-								array(
-									'name' => 'beneficios',
-									'id'   => '_lp_benefits',
-									'type' => 'wysiwyg',
-									'options' => array(
-										'textarea_rows' => 4,
-										'media_buttons' => false,		
-									),
-									'desc' => __( 'Beneficios que brinda el curso. <html>', 'learnpress' ),
+						),
+						array(
+							'name' => 'beneficios',
+							'id'   => '_lp_benefits',
+							'type' => 'wysiwyg',
+							'options' => array(
+								'textarea_rows' => 4,
+								'media_buttons' => false,		
+							),
+							'desc' => __( 'Beneficios que brinda el curso. <html>', 'learnpress' ),
 
-									),
-								)
-							)
-						);
+						),
+					)
+				)
+			);
 
 				// Add new review tab
-				$course_tabs['review_logs'] = new RW_Meta_Box(
-					array(
-						'id'       => 'review_logs',
-						'title'    => __( 'Añadir reviews', 'learnpress' ),
-						'pages'    => array( LP_COURSE_CPT ),
-						'priority' => 'high',
-						'icon'     => 'dashicons-admin-tools',
-						'fields'   => array(
-							array(
-								'name' => 'Nombres',
-								'id'   => '_lp_review_name',
-								'type' => 'text',
-								'clone' => true,
-								'sort_clone' => true,
-								'desc' => __( 'Nombre del alumno que da su opinión.', 'learnpress' ),
-								),
+			$course_tabs['review_logs'] = new RW_Meta_Box(
+				array(
+					'id'       => 'review_logs',
+					'title'    => __( 'Añadir reviews', 'learnpress' ),
+					'pages'    => array( LP_COURSE_CPT ),
+					'priority' => 'high',
+					'icon'     => 'dashicons-admin-tools',
+					'fields'   => array(
+						array(
+							'name' => 'Nombres',
+							'id'   => '_lp_review_name',
+							'type' => 'text',
+							'clone' => true,
+							'sort_clone' => true,
+							'desc' => __( 'Nombre del alumno que da su opinión.', 'learnpress' ),
+						),
 
-							array(
-								'name' => 'Opinión',
-								'id'   => '_lp_review',
-								'type' => 'textarea',
-								'clone' => true,
-								'sort_clone' => true,
-								),
-							)
-						)
-					);
-				return $course_tabs;
+						array(
+							'name' => 'Opinión',
+							'id'   => '_lp_review',
+							'type' => 'textarea',
+							'clone' => true,
+							'sort_clone' => true,
+						),
+					)
+				)
+			);
+			return $course_tabs;
+		}
+
+		public function my_user_profile_edit_action($user) {
+			$professional_title = get_user_meta( $user->ID, 'professional_title', true );
+			?>
+			<h3>Infomación Extra</h3>
+			<table class="form-table">
+				<tr>
+					<th><label for="professional_title">Cargo o Título Profesional</label></th>
+					<td>
+						<textarea rows="10" cols="450" name="professional_title" id="professional_title"  class="regular-text" /><?php echo esc_textarea( $professional_title ); ?></textarea>
+					</td>
+				</tr>
+			</table>
+			<?php 
+		}
+
+		public function my_user_profile_update_action($user_id) {	
+			if ( ! current_user_can( 'edit_user', $user_id ) ) {
+				return false;
+			}
+			if ( empty( $_POST['professional_title'] ) ) {
+				return false;
 			}
 
-			public function my_user_profile_edit_action($user) {
-				$professional_title = get_user_meta( $user->ID, 'professional_title', true );
-				?>
-				<h3>Infomación Extra</h3>
-				<table class="form-table">
-					<tr>
-						<th><label for="professional_title">Cargo o Título Profesional</label></th>
-						<td>
-							<textarea rows="10" cols="450" name="professional_title" id="professional_title"  class="regular-text" /><?php echo esc_textarea( $professional_title ); ?></textarea>
-						</td>
-					</tr>
-				</table>
-				<?php 
-			}
-
-			public function my_user_profile_update_action($user_id) {	
-				if ( ! current_user_can( 'edit_user', $user_id ) ) {
-					return false;
-				}
-				if ( empty( $_POST['professional_title'] ) ) {
-					return false;
-				}
-
-				update_user_meta($user_id, 'professional_title', sanitize_textarea_field($_POST['professional_title']));
-			}
+			update_user_meta($user_id, 'professional_title', sanitize_textarea_field($_POST['professional_title']));
+		}
 
 		/**
 		 * Add Shortcode Course breadcrumb
@@ -614,59 +633,112 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 		public function course_breadcrumb_st( $atts ) {
 			// Attributes
 			// Execution
-				global $post;
-				$terms = wp_get_post_terms( $post->ID, 'course_tag');
-				if( ! empty( $terms ) ) {
-					$tag_course_link = get_term_link($terms[0]->term_id);
-					$tag_course_name = $terms[0]->name;
-				}
-				$initial_date = get_post_meta( $post->ID, '_lp_date_start', true );
-				$delimiter = ':';
-				$title = explode($delimiter, $post->post_title);
+			global $post;
+			$terms = wp_get_post_terms( $post->ID, 'course_tag');
+			if( ! empty( $terms ) ) {
+				$tag_course_link = get_term_link($terms[0]->term_id);
+				$tag_course_name = $terms[0]->name;
+			}
+			$initial_date = get_post_meta( $post->ID, '_lp_date_start', true );
+			$delimiter = ':';
+			$title = explode($delimiter, $post->post_title);
 			// Output
-				ob_start();					
-				?>	
-				<div class="wip-header-content">
-					<?php if( ! empty( $terms ) ): ?><h4><a href="<?php echo $tag_course_link; ?>"><?php echo $tag_course_name; ?> </a></h4><?php endif; ?>
-					<h1 class="frase" itemprop="headline"><?php echo $title[0] . $delimiter . '<br>' . $title[1]; ?></h1>
-					<?php if( ! empty( $initial_date ) && is_array( $initial_date ) ): ?>
-						<h3 class="wip-initial-date"><span>INICIO: </span><?php foreach ($initial_date as $date): ?><?php echo convert_spanish_date( $date ); ?><br><?php endforeach; ?></h3>
-					<?php endif; ?>
-					<div class="wip-20-top"><a class="wip-sign-up wip-btn" href="#">INSCRÍBETE</a></div>
-				</div>
-				<?php
-				return ob_get_clean();
+			ob_start();					
+			?>	
+			<div class="wip-header-content">
+				<?php if( ! empty( $terms ) ): ?><h4><a href="<?php echo $tag_course_link; ?>"><?php echo $tag_course_name; ?> </a></h4><?php endif; ?>
+				<h1 class="frase" itemprop="headline"><?php echo $title[0] . $delimiter . '<br>' . $title[1]; ?></h1>
+				<?php if( ! empty( $initial_date ) && is_array( $initial_date ) ): ?>
+				<h3 class="wip-initial-date"><span>INICIO: </span><?php foreach ($initial_date as $date): ?><?php echo convert_spanish_date( $date ); ?><br><?php endforeach; ?></h3>
+			<?php endif; ?>
+			<div class="wip-20-top"><a class="wip-sign-up wip-btn" href="#">INSCRÍBETE</a></div>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	public function action_wpcf7_before_send_mail( $form ) {
+		$form = WPCF7_Submission::get_instance(); 
+		if ( $form )  {
+			$formData = $form->get_posted_data();
+
+			$id_origen = $formData['_wpcf7'];
+			$creado = $fecha_origen = current_time( 'timestamp', -5);
+			$empresa_usa_sap = '-';
+			$medio_contacto = 'PW';
+			$estado = 1;
+			$inscrito = 0;
+			$modo_insercion = 'A';
+			$urgente = false;
+			$curso = ( ! empty( $formData["your_course"] ) ) ? $formData["your_course"] : 'No hay curso';
+
+			switch ( $formData['_wpcf7'] ) {
+				case '358':
+					$nombre_completo = $formData["wip-name"];
+					$telefono = $formData["wip-phone"];
+					$email = $formData['wip-email'];
+					$observacion = 'Suscripción por formulario principal';
+					$ocupacion = '';
+					$nombre_empresa = '';
+					$nro_documento = '';
+					$ruc_empresa = '';
+					break;
+				default:
+					break;
+			}
+
 		}
+	
+		/*try {
+			$myPDO = new PDO('pgsql:host=190.117.126.164;dbname=postgres', 'crm_zapier', '$apier%u');
 
-		public function dynamic_field_values ( $tag, $unused ) {
-		    if ( $tag['name'] != 'your_course' )
-		        return $tag;
+			if($myPDO) {
+				$result = $myPDO->query("INSERT INTO crm.interesado(id_origen, creado,
+		fecha_origen, nombre_completo, telefono, email, ocupacion, nombre_empresa, empresa_usa_sap, medio_contacto, estado, inscrito, curso, modo_insercion, observacion, urgente, nro_documento, ruc_empresa) VALUES ('". $id_origen ."', ". $creado  .", ". $fecha_origen .", '" .$nombre_completo. "', '".$telefono."', '".$email."', '".$ocupacion."', '".$nombre_empresa."', '".$empresa_usa_sap."', '".$medio_contacto."', ".$estado.", ".$inscrito.", '".$curso."', '".$modo_insercion."', '".$observacion."', ".$urgente", '".$nro_documento."', '".$ruc_empresa."');");
+			}
+		} catch (PDOException $e){
+ 			// report error message
+			echo $e->getMessage(); die;
+		}*/
+	}
 
-		    $args = array (
-		        'numberposts'   => -1,
-		        'post_type'     => LP_COURSE_CPT,
-		        'orderby'       => 'title',
-		        'order'         => 'ASC',
-		    );
+	public function dynamic_field_values ( $tag, $unused ) {
+		if ( $tag['name'] != 'your_course' )
+			return $tag;
 
-		    $custom_posts = get_posts($args);
+		global $post;
+		
+		if( empty( $post->ID ) )
+			return $tag;
 
-		    if ( ! $custom_posts )
-		        return $tag;
+		$tag['raw_values'][] = $post->post_title;
+		$tag['values'][] = $post->post_title;
 
-		    foreach ( $custom_posts as $custom_post ) {
+		/*$args = array (
+			'numberposts'   => -1,
+			'post_type'     => LP_COURSE_CPT,
+			'orderby'       => 'title',
+			'order'         => 'ASC',
+		);
 
-		        $tag['raw_values'][] = $custom_post->post_title;
-		        $tag['values'][] = $custom_post->post_title;
-		        $tag['labels'][] = $custom_post->post_title;
+		$custom_posts = get_posts($args);
 
-		    }
+		if ( ! $custom_posts )
+			return $tag;
 
-		    return $tag;
+		foreach ( $custom_posts as $custom_post ) {
 
-		}
+			$tag['raw_values'][] = $custom_post->post_title;
+			$tag['values'][] = $custom_post->post_title;
+			$tag['labels'][] = $custom_post->post_title;
 
-		public function custom_text_validation($result, $tag) {
+		}*/
+
+		return $tag;
+
+	}
+
+	public function custom_text_validation($result, $tag) {
 		    $type = $tag->type; //object instead of array
 		    $name = $tag->name; //object instead of array
 
@@ -691,33 +763,33 @@ if ( ! class_exists( 'WipFunciones' ) ) {
 function wip_funciones_add_copyright_text() {
 	if (is_single()) { ?>
 
-<script type='text/javascript'>
-function wip_funciones_add_link() {
-    if (
-window.getSelection().containsNode(
-document.getElementsByClassName('entry-content')[0], true)) {
-    var body_element = document.getElementsByTagName('body')[0];
-    var selection;
-    selection = window.getSelection();
-    var oldselection = selection
-    var pagelink = "<br /><br /> Fuente: <a href='<?php echo get_permalink(get_the_ID()); ?>'><?php echo get_permalink(get_the_ID()); ?></a>";
-    var copy_text = selection + pagelink;
-    var new_div = document.createElement('div');
-    new_div.style.left='-99999px';
-    new_div.style.position='absolute';
+		<script type='text/javascript'>
+			function wip_funciones_add_link() {
+				if (
+					window.getSelection().containsNode(
+						document.getElementsByClassName('entry-content')[0], true)) {
+					var body_element = document.getElementsByTagName('body')[0];
+				var selection;
+				selection = window.getSelection();
+				var oldselection = selection
+				var pagelink = "<br /><br /> Fuente: <a href='<?php echo get_permalink(get_the_ID()); ?>'><?php echo get_permalink(get_the_ID()); ?></a>";
+				var copy_text = selection + pagelink;
+				var new_div = document.createElement('div');
+				new_div.style.left='-99999px';
+				new_div.style.position='absolute';
 
-    body_element.appendChild(new_div );
-    new_div.innerHTML = copy_text ;
-    selection.selectAllChildren(new_div );
-    window.setTimeout(function() {
-        body_element.removeChild(new_div );
-    },0);
+				body_element.appendChild(new_div );
+				new_div.innerHTML = copy_text ;
+				selection.selectAllChildren(new_div );
+				window.setTimeout(function() {
+					body_element.removeChild(new_div );
+				},0);
+			}
+		}
+		document.oncopy = wip_funciones_add_link;
+	</script>
+	<?php
 }
-}
-document.oncopy = wip_funciones_add_link;
-</script>
-<?php
-	}
 }
 add_action( 'wp_head', 'wip_funciones_add_copyright_text');
 
@@ -739,12 +811,12 @@ function wip_funciones_jquery() {
 		// register the Google hosted Version
 		wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"), false, '', true);
 		wp_register_script('jquery-migrate', ("https://code.jquery.com/jquery-migrate-1.4.1.min.js"), array('jquery'), '', true);
-		  
+
 		// add it back into the queue
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-migrate');
-		}
 	}
+}
 // even more smart jquery inclusion :)
 add_action('init', 'wip_funciones_jquery', 11);
 
@@ -833,11 +905,11 @@ function wip_news_shortcode( $atts ) {
 	);
 
 	$args = array(
-			'post_type' => 'post',
-			'posts_per_page' => $atts['num_post'],
-			'order' => 'DESC',
-			'orderby' => 'date',
-		);
+		'post_type' => 'post',
+		'posts_per_page' => $atts['num_post'],
+		'order' => 'DESC',
+		'orderby' => 'date',
+	);
 	$queries[] = new WP_Query( $args );
 
 
